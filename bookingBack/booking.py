@@ -7,6 +7,15 @@ from datetime import date
 app = Flask(__name__)
 CORS(app)
 
+database = mysql.connector.connect(
+  host="localhost",
+  user="ElizaZapalska",
+  password="Weronka97"
+)
+
+mycursor = database.cursor()
+
+mycursor.execute("CREATE DATABASE bookingsystemDB")
 
 @app.route('/date', methods=['GET'])
 def sendDateToday():
