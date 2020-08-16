@@ -10,12 +10,11 @@ CORS(app)
 
 @app.route('/date', methods=['GET'])
 def sendDateToday():
-    request = request.json
-    print('myrequestoooooooooooooooo', request)
+    date = datetime.datetime.now().date()
     date_today = {
-        'date': datetime.datetime.now().date()
+        'date': date
     }
-    print(dateToday)
+    print(date_today)
 
     return jsonify(date_today)
 

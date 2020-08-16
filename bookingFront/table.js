@@ -2,6 +2,11 @@ import {urlRequest } from "./constants.js";
 export { generateTable };
 
 
+const navBarDate = document.getElementById('date')
+const date = HTTPRequest("GET", "date");
+console.log('date', date)
+
+
 function generateTable(hours, classrooms) {
     appendHours(hours);
     appendClassrooms(classrooms, hours);
@@ -37,10 +42,6 @@ function addEmptyCells(newRow, hours, classroom) {
         let td = document.createElement("td");
         td.setAttribute("hour", hours[i+1])
         td.setAttribute("classroom", classroom)
-
-        const dateToday = {};
-        sendRequest('GET', dateToday, 'date')
-
         td.onclick = () => markAsBooked(td);
         newRow.appendChild(td)
         i += 1;
@@ -56,20 +57,19 @@ function markAsBooked(td) {
 }
 
 
-
-function sendRequest(method, request, requestText) {
+function HTTPRequest(method, urlLastPartText) {
     const httpRequest = new XMLHttpRequest();
-    httpRequest.open(method, urlRequest + requestText);
-    console.log(method, urlRequest + requestText);
+    httpRequest.open(method, urlRequest + urlLastPartText);
     httpRequest.setRequestHeader('Content-Type', 'application/json')
-    console.log('request', request)
-    httpRequest.send(JSON.stringify(request));
-    httpRequest.onreadystatechange = () => takeSavedValues(request)
+    httpRequest.send(JSON.stringify(httpRequest));
+    httpRequest.onreadystatechange = () => takeSavedValues(httpRequest)
 }
+
 
 function takeSavedValues(response) {
     if (response.readyState === 4) {
         const savedThings = JSON.parse(response.response)
         console.log(savedThings)
+        return savedThings
     }
 }
