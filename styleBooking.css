@@ -1,4 +1,45 @@
-#table td {
-    border: 1px solid black;
+#table {
+    text-align: center;
 }
 
+#table td {
+    border: 1px solid #805b9f;
+    width: 50px;
+    height: 20px;
+}
+#table th {
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #501f76;
+    border: 1px solid #805b9f;
+    width: 50px;
+    height: 20px;
+    background-color: #f8f0fd;
+}
+
+body {
+    background-color: #fbf9ff;
+}
+h2 {
+    font-family: 'Source Sans Pro', sans-serif;
+    text-align: center;
+    font-size: 2em;
+    color: #501f76;
+    text-shadow: 5px 5px rgba(159, 155, 161, 0.34);
+}
+
+.booked {
+    background-color: #adeea1;
+}
+
+
+h3 {
+    margin: 20px auto;
+    text-align: center;
+    width: 150px;
+    height: 40px;
+    color: #501f76;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 2em;
+    border: 1px solid black;
+
+}
