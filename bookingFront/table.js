@@ -1,6 +1,8 @@
+import {urlRequest } from "./constants.js";
+export { generateTable };
+
 
 function generateTable(hours, classrooms) {
-
     appendHours(hours);
     appendClassrooms(classrooms, hours);
 
@@ -35,6 +37,10 @@ function addEmptyCells(newRow, hours, classroom) {
         let td = document.createElement("td");
         td.setAttribute("hour", hours[i+1])
         td.setAttribute("classroom", classroom)
+
+        const dateToday = {};
+        sendRequest('GET', dateToday, 'date')
+
         td.onclick = () => markAsBooked(td);
         newRow.appendChild(td)
         i += 1;
@@ -49,5 +55,21 @@ function markAsBooked(td) {
     }
 }
 
-export { generateTable };
 
+
+function sendRequest(method, request, requestText) {
+    const httpRequest = new XMLHttpRequest();
+    httpRequest.open(method, urlRequest + requestText);
+    console.log(method, urlRequest + requestText);
+    httpRequest.setRequestHeader('Content-Type', 'application/json')
+    console.log('request', request)
+    httpRequest.send(JSON.stringify(request));
+    httpRequest.onreadystatechange = () => takeSavedValues(request)
+}
+
+function takeSavedValues(response) {
+    if (response.readyState === 4) {
+        const savedThings = JSON.parse(response.response)
+        console.log(savedThings)
+    }
+}

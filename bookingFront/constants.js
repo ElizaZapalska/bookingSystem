@@ -5,5 +5,6 @@ const hours = [
         "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30"]
 
 const classrooms =[4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
+const urlRequest = 'http://127.0.0.1:5000/'
 
-export { hours, classrooms };
+export { hours, classrooms, urlRequest };
