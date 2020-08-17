@@ -3,8 +3,7 @@ export { generateTable };
 
 
 const navBarDate = document.getElementById('date')
-HTTPRequest('GET', 'date')
-/*TODO try to catch date from HTTPRequest function*/
+
 
 
 
@@ -57,22 +56,4 @@ function markAsBooked(td) {
         td.setAttribute("class", "booked")
     }
 }
-/*TODO change to urlPath*/
 
-function HTTPRequest(method, urlLastPartText) {
-    const httpRequest = new XMLHttpRequest();
-    httpRequest.open(method, urlRequest + urlLastPartText);
-    httpRequest.setRequestHeader('Content-Type', 'application/json')
-    httpRequest.send(JSON.stringify(httpRequest));
-    httpRequest.onreadystatechange = () => takeSavedValues(httpRequest)
-    console.log()
-}
-
-
-function takeSavedValues(response) {
-    if (response.readyState === 4) {
-        const savedThings = JSON.parse(response.response)
-        console.log(savedThings)
-        return savedThings
-    }
-}

@@ -8,26 +8,44 @@ app = Flask(__name__)
 CORS(app)
 
 database = mysql.connector.connect(
-  host="localhost",
-  user="ElizaZapalska",
-  password="Weronka97"
+    host="localhost",
+    user="root",
+    password="haslo",
+    database="bookingsystemdb"
 )
 
-mycursor = database.cursor()
+cursor = database.cursor()
 
-mycursor.execute("CREATE DATABASE bookingsystemDB")
+'''bookedRooms = [{
+"id": "26",
+"date": "2020 - 08 - 08",
+"time": "13:00",
+"surname": "Nowak Jan",
+"status": "booked"
+},
+{
+"id": "27",
+"date": "2020 - 08 - 08",
+"time": "13:30",
+"surname": "Nowak Jan",
+"status": "booked"
+}
+]'''
 
-@app.route('/date', methods=['GET'])
-def sendDateToday():
-    date = datetime.datetime.now().date()
-    date_today = {
-        'date': date
-    }
-    print(date_today)
+bookedRooms = {
+    "classroom": "13",
+    "date": "2020 - 08 - 08",
+    "hour": "13:00",
+    "surname": "Nowak Jan",
+    "status": "booked"
+}
 
-    return jsonify(date_today)
+
+@app.route('/', methods=['GET'])
+def sendBookedRooms():
+    print('dupa')
+    return jsonify(bookedRooms)
 
 
 if __name__ == '__main__':
     app.run()
-
