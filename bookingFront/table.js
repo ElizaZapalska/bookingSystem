@@ -1,16 +1,29 @@
-import {urlRequest } from "./constants.js";
-export { generateTable };
+export { generateTable,takeSavedBookedRooms };
 
 
-const navBarDate = document.getElementById('date')
+
+function takeSavedBookedRooms() {
+    const httpRequest = new XMLHttpRequest();
+    httpRequest.open('GET', "http://127.0.0.1:5000/");
+    httpRequest.setRequestHeader('Content-Type', 'application/json')
+    httpRequest.send(JSON.stringify(httpRequest));
+    httpRequest.onreadystatechange = () => takeSavedValues(httpRequest)
+}
 
 
+function takeSavedValues(response) {
+    if (response.readyState === 4) {
+        const savedThings = JSON.parse(response.response)
+        console.log(savedThings)
+        appendClassrooms(savedThings)
+    }
+}
 
 
 
 function generateTable(hours, classrooms) {
     appendHours(hours);
-    appendClassrooms(classrooms, hours);
+    appendClassrooms(classrooms, hours, savedThings);
 
 }
 
@@ -25,22 +38,23 @@ function appendHours(hours) {
     }
 }
 
-function appendClassrooms(classrooms, hours) {
+function appendClassrooms(classrooms, hours, savedThings) {
     const table = document.getElementById('table')
     for (let classroom of classrooms) {
         let newRow = document.createElement("tr");
         let classNumber = document.createElement("td");
         classNumber.innerText = classroom
         newRow.appendChild(classNumber)
-        addEmptyCells(newRow, hours, classroom);
+        drawSchedule(newRow, hours, classroom, savedThings);
         table.appendChild(newRow)
     }
 }
 
-function addEmptyCells(newRow, hours, classroom) {
+function drawSchedule(newRow, hours, classroom, savedThings) {
     let i = 0;
     while (i < hours.length - 1) {
         let td = document.createElement("td");
+        console.log('savedThings', savedThings)
         td.setAttribute("hour", hours[i+1])
         td.setAttribute("classroom", classroom)
         td.onclick = () => markAsBooked(td);
