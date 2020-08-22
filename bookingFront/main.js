@@ -1,8 +1,8 @@
-import { generateTable, hours, classrooms } from './table.js';
+import { loadBookedRooms } from './table.js';
 
 
 
-generateTable(hours, classrooms)
+loadBookedRooms()
 
 
 

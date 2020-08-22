@@ -1,4 +1,4 @@
-export {generateTable, hours, classrooms}
+export {loadBookedRooms}
 
 const hours = [
     "classroom / hour ","6:30", "7:00", "7:30", "8:00", "8:30", "9:00", "9:30", "10:00",
@@ -11,17 +11,20 @@ const classrooms =[4,5,6,7,8,9,10,11,12,13,14,15,16,17,18];
 
 
 function loadBookedRooms() {
+    generateTable(hours, classrooms)
     let httpRequest = new XMLHttpRequest();
     httpRequest.open('GET', "http://127.0.0.1:5000/");
     httpRequest.setRequestHeader('Content-Type', 'application/json')
-    httpRequest.send();
+    httpRequest.send(null);
     httpRequest.onreadystatechange = () => takeSavedValues(httpRequest)
 }
 
 
 function takeSavedValues(httpRequest) {
+    console.log(httpRequest)
     if (httpRequest.readyState === 4) {
         const savedBookings = JSON.parse(httpRequest.response)
+        console.log('savedBookings', savedBookings)
         generateTable(hours, classrooms)
 
     }
