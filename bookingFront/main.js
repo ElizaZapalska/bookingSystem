@@ -1,9 +1,7 @@
-import {generateTable, takeSavedBookedRooms} from './table.js';
-import {hours, classrooms } from "./constants.js";
-import {urlRequest} from "./constants"; //doesn't work
+import { generateTable, hours, classrooms } from './table.js';
 
 
-takeSavedBookedRooms()
+
 generateTable(hours, classrooms)
 
 

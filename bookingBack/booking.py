@@ -1,50 +1,26 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import mysql.connector
-import datetime
 from datetime import date
 
 app = Flask(__name__)
 CORS(app)
 
-database = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="haslo",
-    database="bookingsystemdb"
-)
-
-cursor = database.cursor()
-
-'''bookedRooms = [{
-"id": "26",
-"date": "2020 - 08 - 08",
-"time": "13:00",
-"surname": "Nowak Jan",
-"status": "booked"
-},
-{
-"id": "27",
-"date": "2020 - 08 - 08",
-"time": "13:30",
-"surname": "Nowak Jan",
-"status": "booked"
-}
-]'''
-
-bookedRooms = {
-    "classroom": "13",
-    "date": "2020 - 08 - 08",
-    "hour": "13:00",
-    "surname": "Nowak Jan",
-    "status": "booked"
-}
+classrooms = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+bookings_details = {}
 
 
 @app.route('/', methods=['GET'])
-def sendBookedRooms():
+def send_booked_rooms():
     print('dupa')
-    return jsonify(bookedRooms)
+    return jsonify(booking_details)
+
+
+@app.route('/bookedRooms', methods=['POST'])
+def pick_up_bookings():
+    bookings = request.json
+    bookings_details['classrooms'] = bookings
+    return bookings_details
 
 
 if __name__ == '__main__':
