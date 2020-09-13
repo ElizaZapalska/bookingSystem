@@ -1,3 +1,10 @@
-import { loadBookedRooms } from './table.js';
+import { loadBookedRooms, saveBookedRoom } from './bookings.js';
+import {generateTable, setBookingEvent} from "./table.js";
 
-loadBookedRooms()
+setBookingEvent(bookingEvent);
+loadBookedRooms(generateTable);
+
+function bookingEvent(event) {
+    console.log(event.target)
+    saveBookedRoom(event);
+}
