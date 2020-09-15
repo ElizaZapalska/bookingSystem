@@ -1,14 +1,15 @@
-from bookingBack.booking import db
+from database import db
 
 
 class Booking(db.Model):
     __tablename__ = "bookings"
     id = db.Column(db.Integer, primary_key=True)
-    hour = db.Column(db.String(10), unique=False, nullable=False)
-    date = db.Column(db.Date(), nullable=False)
-    classroom = db.Column(db.String(40), nullable=False)
-    user = db.Column(db.String(50), nullable=False)
-    status = db.Column(db.String(10), nullable=False)
+    classroom = db.Column(db.String(40))
+    hour = db.Column(db.String(10), unique=False)
+    date = db.Column(db.Date(), nullable=True)
+    user = db.Column(db.String(50))
+    status = db.Column(db.String(10))
 
     def __repr__(self):
-        return '<Booking %r>' % self.user
+       return '<Booking id=%r, classroom=%r, hour=%r, date=%r, user=%r, status=%r>'\
+              % (self.id, self.classroom, self.hour, self.date, self.user, self.status)

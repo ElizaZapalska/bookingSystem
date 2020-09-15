@@ -1,20 +1,17 @@
-import mysql.connector
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
-from bookingBack.bookingTable import Booking
+from database import db
+from bookingTable import Booking
+
 
 app = Flask(__name__)
-CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:haslo@localhost/bookingsystemdb?host=localhost?port=3306"
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+CORS(app)
+db.app = app
+db.init_app(app)
 
 db.create_all()
 
-newBooking = Booking(hour='6:30', classroom=4)
-
-userSurname = "Sznuruwa"
 bookings_details = {
     "classrooms": {
         "4": [
@@ -35,6 +32,27 @@ bookings_details = {
     }
 
 }
+
+bookings = bookings_details["classrooms"]
+
+for key in bookings:
+    one_booking = bookings[key]
+
+    for booking in one_booking:
+        newBooking = Booking(
+            classroom=booking['classroom'],
+            hour=booking['hour'],
+            date=booking['date'],
+            user=booking['surname'],
+            status=booking['status'])
+        db.session.add(newBooking)
+
+db.session.commit()
+
+userSurname = "Sznuruwa"
+
+query = Booking.query.all()
+print(query[0])
 
 
 @app.route('/', methods=['GET'])
