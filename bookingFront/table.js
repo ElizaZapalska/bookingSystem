@@ -1,5 +1,6 @@
 export {generateTable, setBookingEvent}
 
+
 const hours = [
     "6:30", "7:00", "7:30", "8:00", "8:30", "9:00", "9:30", "10:00",
     "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00",
@@ -56,29 +57,34 @@ function drawSchedule(newRow, bookings) {
         const td = document.createElement('td');
         td.setAttribute('classroom', newRow.getAttribute('classroom'));
         td.setAttribute('hour', hour);
-        td.setAttribute('date', 'datetime.date(2020-09-08)') //TODO: hard-coded date!
+
+        td.setAttribute('date', '2020-09-08') //TODO: hard-coded date!
         td.onclick = onBookingEvent;
         newRow.appendChild(td);
     }
     for (let booking of bookings) {
+        let date =  new Date(booking.date)
+        console.log(date)
+        const dateString = date.toISOString().split('T')[0]
+        console.log(dateString)
+
         const bookingHour = booking.hour;
         const bookingClassroom = booking.classroom;
         const queryString = '[hour="' + bookingHour + '"][classroom="' + bookingClassroom + '"]';
         const bookedField = newRow.querySelectorAll(queryString)[0];
-        bookedField.setAttribute('date', booking.date);
+        bookedField.setAttribute('date', dateString);
         bookedField.setAttribute('class', booking.status);
         bookedField.setAttribute('surname', booking.surname);
     }
 }
 
 function markAsBooked(td) {
-    if (td.classList.contains("booked")) {
-        td.classList.remove("booked");
+    if (td.status === "booked") {
+        td.status.remove("booked");
         td.removeAttribute("surname");
-        td.setAttribute("class", "free");
+        td.setAttribute("status", "free");
     } else {
-        td.setAttribute("class", "booked");
-        td.classList.remove("free");
-        td.setAttribute('surname', 'user1');
+        td.status = 'booked';
+        td.surname = 'user1';
     }
 }

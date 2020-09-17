@@ -1,4 +1,5 @@
 from datetime import datetime
+from os.path import exists
 
 from booking_table import Booking
 from classroom_table import Classroom
@@ -6,28 +7,16 @@ from databaseConfig import db
 
 
 def save_booking_DB(booking):
-    print('booking:', booking)
     new_booking = Booking(
         classroom=booking['classroom'],
         hour=booking['hour'],
-        date=makeCorrectDateFormat(booking['date']),
+        date=booking['date'],
         user='user1',
         status='booked')
-    print('new_booking.date', new_booking.date)
 
     db.session.add(new_booking)
     db.session.commit()
     return new_booking
-
-
-def makeCorrectDateFormat(date_text):
-    date = ''
-    x = date_text.split('(')
-    for y in x:
-        if y != "datetime.text":
-            date = y
-    date = date.replace(")", "")
-    return date
 
 
 def get_all_bookings_DB(date):
@@ -39,6 +28,7 @@ def get_all_bookings_DB(date):
 
 def change_data_to_JSON_format(date):
     all_bookings = []
+    print('dateeeeee', date)
     bookings = Booking.query.filter_by(date=date).all()
     for booking in bookings:
         booking_json = {
@@ -75,3 +65,16 @@ def convertData(all_bookings, all_classrooms):
 
     print(bookings_details)
     return bookings_details
+
+
+def check_booking_DB(booking):
+    print('booking["date"]:', booking['date'])
+    print('druga data', booking['date'])
+     #TODO: change this, there is another way to reformat date
+    bookings = Booking.query.filter_by(date=booking['date']).all()
+
+    if booking not in bookings:
+        #save_booking_DB(booking)
+        print('success')
+    else:
+        print('I cant accept this')

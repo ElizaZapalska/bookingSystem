@@ -23,6 +23,8 @@ function sendBookedRoom(request) {
     httpRequest.open('POST', "http://127.0.0.1:5000/bookRoom");
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(JSON.stringify(request));
+    httpRequest.onreadystatechange = () => updateSchedule(httpRequest);
+
 }
 
 function saveBookedRoom(event) {
@@ -34,4 +36,10 @@ function saveBookedRoom(event) {
         status: event.target.getAttribute('status')
     }
     sendBookedRoom(bookedRoom)
+}
+
+function updateSchedule(httpRequest) {
+    if (httpRequest.readyState === 4) {
+        console.log(httpRequest.response, 'dupka')
+    }
 }
