@@ -56,7 +56,7 @@ function drawSchedule(newRow, bookings) {
         const td = document.createElement('td');
         td.setAttribute('classroom', newRow.getAttribute('classroom'));
         td.setAttribute('hour', hour);
-        td.setAttribute('date', '2020-09-08') //TODO: hard-coded date!
+        td.setAttribute('date', 'datetime.date(2020-09-08)') //TODO: hard-coded date!
         td.onclick = onBookingEvent;
         newRow.appendChild(td);
     }

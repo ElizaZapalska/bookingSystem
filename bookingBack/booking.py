@@ -1,18 +1,33 @@
+from datetime import datetime
+
 from booking_table import Booking
 from classroom_table import Classroom
 from databaseConfig import db
 
 
 def save_booking_DB(booking):
+    print('booking:', booking)
     new_booking = Booking(
         classroom=booking['classroom'],
         hour=booking['hour'],
-        date=booking['date'],
+        date=makeCorrectDateFormat(booking['date']),
         user='user1',
         status='booked')
+    print('new_booking.date', new_booking.date)
+
     db.session.add(new_booking)
     db.session.commit()
-    print(booking)
+    return new_booking
+
+
+def makeCorrectDateFormat(date_text):
+    date = ''
+    x = date_text.split('(')
+    for y in x:
+        if y != "datetime.text":
+            date = y
+    date = date.replace(")", "")
+    return date
 
 
 def get_all_bookings_DB(date):
