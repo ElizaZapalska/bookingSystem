@@ -20,7 +20,7 @@ function parseBookingResponse(httpRequest, callback) {
 function sendBookedRoom(request) {
     console.log('request', request);
     let httpRequest = new XMLHttpRequest();
-    httpRequest.open('POST', "http://127.0.0.1:5000/bookedRoom");
+    httpRequest.open('POST', "http://127.0.0.1:5000/bookRoom");
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(JSON.stringify(request));
 }

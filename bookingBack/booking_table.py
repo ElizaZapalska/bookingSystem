@@ -1,4 +1,4 @@
-from database import db
+from databaseConfig import db
 
 
 class Booking(db.Model):

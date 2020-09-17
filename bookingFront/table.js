@@ -6,6 +6,7 @@ const hours = [
     "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00",
     "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30"];
 
+
 let onBookingEvent;
 
 function setBookingEvent(event) {
@@ -55,6 +56,7 @@ function drawSchedule(newRow, bookings) {
         const td = document.createElement('td');
         td.setAttribute('classroom', newRow.getAttribute('classroom'));
         td.setAttribute('hour', hour);
+        td.setAttribute('date', '2020-09-08') //TODO: hard-coded date!
         td.onclick = onBookingEvent;
         newRow.appendChild(td);
     }
