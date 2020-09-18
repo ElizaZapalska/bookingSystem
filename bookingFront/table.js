@@ -57,30 +57,31 @@ function drawSchedule(newRow, bookings) {
         const td = document.createElement('td');
         td.setAttribute('classroom', newRow.getAttribute('classroom'));
         td.setAttribute('hour', hour);
-
         td.setAttribute('date', '2020-09-08') //TODO: hard-coded date!
+        td.setAttribute('surname', '')
+        td.setAttribute('status', 'free')
+        td.setAttribute('class', 'free')
         td.onclick = onBookingEvent;
         newRow.appendChild(td);
     }
     for (let booking of bookings) {
-        let date =  new Date(booking.date)
-        console.log(date)
-        const dateString = date.toISOString().split('T')[0]
-        console.log(dateString)
-
         const bookingHour = booking.hour;
         const bookingClassroom = booking.classroom;
         const queryString = '[hour="' + bookingHour + '"][classroom="' + bookingClassroom + '"]';
         const bookedField = newRow.querySelectorAll(queryString)[0];
-        bookedField.setAttribute('date', dateString);
-        bookedField.setAttribute('class', booking.status);
+        bookedField.setAttribute('date', booking.date);
         bookedField.setAttribute('surname', booking.surname);
+        bookedField.setAttribute('status', booking.status);
+        bookedField.setAttribute('class', booking.status);
+       // if (booking.surname === userSurname) {
+            //bookedField.setAttribute('class', 'bookedByMe');
+       // }
+
     }
 }
 
 function markAsBooked(td) {
     if (td.status === "booked") {
-        td.status.remove("booked");
         td.removeAttribute("surname");
         td.setAttribute("status", "free");
     } else {

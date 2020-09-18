@@ -14,5 +14,6 @@ def get_booked_rooms():
 def save_bookings():
     booking = request.json
     print('booking', booking)
-    check_booking_DB(booking)
-    return booking
+    boolean_status = check_booking_DB(booking)
+    return boolean_status
+

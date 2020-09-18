@@ -55,3 +55,11 @@ h3 {
     width: 40px;
     height: 40px;
 }
+
+.bookByMe {
+    background-color: rgba(208, 243, 160, 0.99);
+}
+
+.bookedByMe {
+    background-color: rgba(100, 123, 56, 0.99);
+}

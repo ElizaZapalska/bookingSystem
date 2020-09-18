@@ -5,14 +5,16 @@ from booking_table import Booking
 from classroom_table import Classroom
 from databaseConfig import db
 
+user_surname = 'me'
+
 
 def save_booking_DB(booking):
     new_booking = Booking(
         classroom=booking['classroom'],
         hour=booking['hour'],
         date=booking['date'],
-        user='user1',
-        status='booked')
+        user=booking['surname'],
+        status=booking['status'])
 
     db.session.add(new_booking)
     db.session.commit()
@@ -34,10 +36,11 @@ def change_data_to_JSON_format(date):
         booking_json = {
             'classroom': booking.classroom,
             'hour': booking.hour,
-            'date': booking.date,
+            'date': booking.date.isoformat(),
             'surname': booking.user,
             'status': booking.status
         }
+        print('booking_json', booking_json)
         all_bookings.append(booking_json)
 
     return all_bookings
@@ -68,13 +71,16 @@ def convertData(all_bookings, all_classrooms):
 
 
 def check_booking_DB(booking):
-    print('booking["date"]:', booking['date'])
-    print('druga data', booking['date'])
-     #TODO: change this, there is another way to reformat date
-    bookings = Booking.query.filter_by(date=booking['date']).all()
-
-    if booking not in bookings:
-        #save_booking_DB(booking)
+    # TODO: change this, there is another way to reformat date
+    filtered_booking = Booking.query.filter_by(date=booking['date'], classroom=booking['classroom'],
+                                               hour=booking['hour']).first()
+    print(filtered_booking)
+    if not filtered_booking:
+        booking['surname'] = user_surname
+        booking['status'] = 'booked'
+        save_booking_DB(booking)
         print('success')
-    else:
+        return 'True'
+    elif booking['classroom'] == filtered_booking.classroom:
         print('I cant accept this')
+        return 'False'

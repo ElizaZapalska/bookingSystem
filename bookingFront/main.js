@@ -1,11 +1,14 @@
 import { loadBookedRooms, saveBookedRoom } from './bookings.js';
 import {generateTable, setBookingEvent} from "./table.js";
 
+
+
+let userSurname = 'me'; //TODO; hard-coded userSurname :(
+
 setBookingEvent(bookingEvent);
 loadBookedRooms(generateTable);
 
 function bookingEvent(event) {
-    console.log(event.target)
-    console.log('event.date', event.target.getAttribute('date'))
+    event.target.surname = userSurname;
     saveBookedRoom(event);
 }
