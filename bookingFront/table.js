@@ -1,5 +1,6 @@
 export {generateTable, setBookingEvent}
 
+let userSurname = 'me';
 
 const hours = [
     "6:30", "7:00", "7:30", "8:00", "8:30", "9:00", "9:30", "10:00",
@@ -73,9 +74,9 @@ function drawSchedule(newRow, bookings) {
         bookedField.setAttribute('surname', booking.surname);
         bookedField.setAttribute('status', booking.status);
         bookedField.setAttribute('class', booking.status);
-       // if (booking.surname === userSurname) {
-            //bookedField.setAttribute('class', 'bookedByMe');
-       // }
+       if (booking.surname === userSurname) {
+            bookedField.setAttribute('class', 'bookedByMe');
+       }
 
     }
 }
