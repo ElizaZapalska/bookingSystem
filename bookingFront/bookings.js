@@ -1,5 +1,5 @@
 export {loadBookedRooms, saveBookedRoom, deleteBookedRoom };
-import {drawOneField} from "./table.js";
+import {drawOneField, updateSchedule} from "./table.js";
 
 let user_surname = "me";
 
@@ -52,20 +52,7 @@ function deleteBookedRoom(event) {
     deleteBooking(deletedBooking, event )
 }
 
-function updateSchedule(httpRequest, event, payload) {
-    if (httpRequest.readyState === 4) {
-        const response = JSON.parse(httpRequest.response)
-        console.log(response.status)
-        if (response.status === "newBooking") {
-            console.log("You've booked")
-            drawOneField(event.target, response)
 
-        } else {
-            console.log('sorryyy not this time')
-            alert("you can't book this room")
-        }
-    }
-}
 
 function deleteBooking(deletedBooking, event) {
     console.log('deletedBooking', deletedBooking)
@@ -73,7 +60,6 @@ function deleteBooking(deletedBooking, event) {
     httpRequest.open('POST', "http://127.0.0.1:5000/deleteBooking");
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(JSON.stringify(deletedBooking));
-    console.log(deletedBooking)
     httpRequest.onreadystatechange = () => updateSchedule(httpRequest, event, deletedBooking)
 
 }

@@ -1,6 +1,8 @@
 from datetime import datetime
 from os.path import exists
 
+from flask import jsonify
+
 from booking_table import Booking
 from classroom_table import Classroom
 from databaseConfig import db
@@ -90,3 +92,6 @@ def delete_from_DB(deleted_booking):
     db.session.delete(filtered_booking)
     db.session.commit()
 
+    deleted_booking['status'] = "free"
+    deleted_booking["surname"] = ""
+    return deleted_booking

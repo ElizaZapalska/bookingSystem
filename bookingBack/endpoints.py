@@ -22,6 +22,10 @@ def save_bookings():
 @app.route('/deleteBooking', methods=['POST'])
 def delete_booking():
     deleted_booking = request.json
-    print(deleted_booking)
-    delete_from_DB(deleted_booking)
-    return deleted_booking
+    print("deleted_booking", deleted_booking)
+    if deleted_booking['status'] == "newBooking" or deleted_booking["surname"] == "me":
+        free_room = delete_from_DB(deleted_booking)
+        print('free_room', free_room)
+        return free_room
+    else:
+        return "You can't delete this booking"
