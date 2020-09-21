@@ -5,8 +5,6 @@ from booking_table import Booking
 from classroom_table import Classroom
 from databaseConfig import db
 
-user_surname = 'me'
-
 
 def save_booking_DB(booking):
     new_booking = Booking(
@@ -40,7 +38,6 @@ def change_data_to_JSON_format(date):
             'surname': booking.user,
             'status': booking.status
         }
-        print('booking_json', booking_json)
         all_bookings.append(booking_json)
 
     return all_bookings
@@ -71,16 +68,25 @@ def convertData(all_bookings, all_classrooms):
 
 
 def check_booking_DB(booking):
-    # TODO: change this, there is another way to reformat date
     filtered_booking = Booking.query.filter_by(date=booking['date'], classroom=booking['classroom'],
                                                hour=booking['hour']).first()
     print(filtered_booking)
     if not filtered_booking:
-        booking['surname'] = user_surname
         booking['status'] = 'booked'
         save_booking_DB(booking)
+        booking['status'] = 'newBooking'
+        print('bookinggggg', booking)
         print('success')
-        return 'True'
-    elif booking['classroom'] == filtered_booking.classroom:
-        print('I cant accept this')
-        return 'False'
+        return booking
+    else:
+        print('buuuu')
+        return 'Error'
+
+
+def delete_from_DB(deleted_booking):
+    filtered_booking = Booking.query.filter_by(date=deleted_booking['date'], classroom=deleted_booking['classroom'],
+                                               hour=deleted_booking['hour']).first()
+    print('filtered_booking', filtered_booking)
+    db.session.delete(filtered_booking)
+    db.session.commit()
+

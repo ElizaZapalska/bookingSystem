@@ -1,4 +1,5 @@
-export {generateTable, setBookingEvent}
+export {generateTable, setBookingEvent, setDeleteEvent, drawOneField}
+
 
 let userSurname = 'me';
 
@@ -10,14 +11,39 @@ const hours = [
 
 
 let onBookingEvent;
+let onDeleteEvent;
 
 function setBookingEvent(event) {
     onBookingEvent = event;
 }
 
+function setDeleteEvent(event) {
+    onDeleteEvent = event;
+}
+
 function generateTable(savedBookings) {
     appendHours(hours);
     appendClassrooms(savedBookings);
+}
+
+function drawOneField(td, booking) {
+    td.setAttribute('surname', booking.surname)
+    td.setAttribute('status', booking.status)
+    if (booking.surname === userSurname) {
+        td.setAttribute('class', 'bookedByMe');
+    } else {
+        td.setAttribute('class', booking.status)
+    }
+
+    if (booking.status === "free"){
+        td.onclick = onBookingEvent;
+    } else if (booking.status ==="newBooking") {
+        td.setAttribute('class', 'bookByMe')
+    }
+    else {
+        td.onclick = onDeleteEvent;
+    }
+
 }
 
 function appendHours(hours) {
@@ -59,10 +85,11 @@ function drawSchedule(newRow, bookings) {
         td.setAttribute('classroom', newRow.getAttribute('classroom'));
         td.setAttribute('hour', hour);
         td.setAttribute('date', '2020-09-08') //TODO: hard-coded date!
-        td.setAttribute('surname', '')
-        td.setAttribute('status', 'free')
-        td.setAttribute('class', 'free')
-        td.onclick = onBookingEvent;
+        let defaultField = {
+            surname: '',
+            status: 'free',
+        }
+        drawOneField(td, defaultField)
         newRow.appendChild(td);
     }
     for (let booking of bookings) {
@@ -71,22 +98,7 @@ function drawSchedule(newRow, bookings) {
         const queryString = '[hour="' + bookingHour + '"][classroom="' + bookingClassroom + '"]';
         const bookedField = newRow.querySelectorAll(queryString)[0];
         bookedField.setAttribute('date', booking.date);
-        bookedField.setAttribute('surname', booking.surname);
-        bookedField.setAttribute('status', booking.status);
-        bookedField.setAttribute('class', booking.status);
-       if (booking.surname === userSurname) {
-            bookedField.setAttribute('class', 'bookedByMe');
-       }
-
+        drawOneField(bookedField, booking)
     }
 }
 
-function markAsBooked(td) {
-    if (td.status === "booked") {
-        td.removeAttribute("surname");
-        td.setAttribute("status", "free");
-    } else {
-        td.status = 'booked';
-        td.surname = 'user1';
-    }
-}

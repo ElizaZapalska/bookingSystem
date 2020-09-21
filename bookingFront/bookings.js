@@ -1,4 +1,5 @@
-export {loadBookedRooms, saveBookedRoom};
+export {loadBookedRooms, saveBookedRoom, deleteBookedRoom };
+import {drawOneField} from "./table.js";
 
 let user_surname = "me";
 
@@ -25,7 +26,7 @@ function sendBookedRoom(payload, event) {
     httpRequest.open('POST', "http://127.0.0.1:5000/bookRoom");
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(JSON.stringify(payload));
-    httpRequest.onreadystatechange = () => updateSchedule(httpRequest, event);
+    httpRequest.onreadystatechange = () => updateSchedule(httpRequest, event, payload);
 
 }
 
@@ -34,24 +35,45 @@ function saveBookedRoom(event) {
         classroom: event.target.getAttribute('classroom'),
         hour: event.target.getAttribute('hour'),
         date: event.target.getAttribute('date'),
-        surname: event.target.getAttribute('surname'),
+        surname: user_surname,
         status: event.target.getAttribute('status')
     }
     sendBookedRoom(bookedRoom, event)
 }
 
-function updateSchedule(httpRequest, event) {
+function deleteBookedRoom(event) {
+    const deletedBooking = {
+        'classroom': event.target.getAttribute('classroom'),
+        'hour': event.target.getAttribute('hour'),
+        'date': event.target.getAttribute('date'),
+        'surname': event.target.getAttribute('surname'),
+        'status': event.target.getAttribute('status'),
+    }
+    deleteBooking(deletedBooking, event )
+}
+
+function updateSchedule(httpRequest, event, payload) {
     if (httpRequest.readyState === 4) {
-        console.log(httpRequest.response)
-        if (httpRequest.response === "True") {
+        const response = JSON.parse(httpRequest.response)
+        console.log(response.status)
+        if (response.status === "newBooking") {
             console.log("You've booked")
-            event.target.setAttribute('class', 'bookByMe')
-            event.target.setAttribute('status', 'booked')
-            event.target.setAttribute('surname', user_surname)
-            console.log(event.target)
+            drawOneField(event.target, response)
+
         } else {
             console.log('sorryyy not this time')
             alert("you can't book this room")
         }
     }
+}
+
+function deleteBooking(deletedBooking, event) {
+    console.log('deletedBooking', deletedBooking)
+    let httpRequest = new XMLHttpRequest();
+    httpRequest.open('POST', "http://127.0.0.1:5000/deleteBooking");
+    httpRequest.setRequestHeader('Content-Type', 'application/json');
+    httpRequest.send(JSON.stringify(deletedBooking));
+    console.log(deletedBooking)
+    httpRequest.onreadystatechange = () => updateSchedule(httpRequest, event, deletedBooking)
+
 }
