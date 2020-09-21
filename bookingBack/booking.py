@@ -1,7 +1,3 @@
-from datetime import datetime
-from os.path import exists
-
-from flask import jsonify
 
 from booking_table import Booking
 from classroom_table import Classroom

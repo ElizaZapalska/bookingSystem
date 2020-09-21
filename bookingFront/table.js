@@ -1,7 +1,9 @@
-export {generateTable, setBookingEvent, setDeleteEvent, drawOneField, updateSchedule}
+export {setDate, generateTable, setBookingEvent, setDeleteEvent, drawOneField, updateSchedule}
 
 
 let userSurname = 'me';
+let date = document.getElementById('date');
+const weekDay = document.getElementById('weekDay')
 
 const hours = [
     "6:30", "7:00", "7:30", "8:00", "8:30", "9:00", "9:30", "10:00",
@@ -9,9 +11,26 @@ const hours = [
     "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00",
     "18:30", "19:00", "19:30", "20:00", "20:30", "21:00", "21:30"];
 
-
 let onBookingEvent;
 let onDeleteEvent;
+
+function setDate() {
+    let newDate = new Date()
+    const splitText = newDate.toISOString().split('T');
+    const dateText = splitText[0];
+    date.innerHTML = dateText;
+    let weekday = new Array(7);
+    weekday[0] = "Sunday";
+    weekday[1] = "Monday";
+    weekday[2] = "Tuesday";
+    weekday[3] = "Wednesday";
+    weekday[4] = "Thursday";
+    weekday[5] = "Friday";
+    weekday[6] = "Saturday";
+    weekDay.innerHTML = weekday[newDate.getDay()];
+
+    return date
+}
 
 function setBookingEvent(event) {
     onBookingEvent = event;
