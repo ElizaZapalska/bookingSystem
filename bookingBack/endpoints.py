@@ -3,10 +3,10 @@ from app import app
 from booking import get_all_bookings_DB, check_booking_DB, delete_from_DB
 
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['POST'])
 def get_booked_rooms():
-    # TODO: change this "hard-coded" date
-    return jsonify(get_all_bookings_DB('2020-09-08'))
+    bookingsDate = request.json['date']
+    return jsonify(get_all_bookings_DB(bookingsDate))
 
 
 @app.route('/bookRoom', methods=['POST'])

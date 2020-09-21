@@ -1,8 +1,9 @@
-export {setDate, generateTable, setBookingEvent, setDeleteEvent, drawOneField, updateSchedule}
+export {getDate, generateTable, setBookingEvent, setDeleteEvent, drawOneField, updateSchedule}
+
 
 
 let userSurname = 'me';
-let date = document.getElementById('date');
+let dateElement = document.getElementById('date');
 const weekDay = document.getElementById('weekDay')
 
 const hours = [
@@ -14,11 +15,11 @@ const hours = [
 let onBookingEvent;
 let onDeleteEvent;
 
-function setDate() {
+function getDate() {
     let newDate = new Date()
     const splitText = newDate.toISOString().split('T');
     const dateText = splitText[0];
-    date.innerHTML = dateText;
+    dateElement.innerHTML = dateText;
     let weekday = new Array(7);
     weekday[0] = "Sunday";
     weekday[1] = "Monday";
@@ -29,7 +30,7 @@ function setDate() {
     weekday[6] = "Saturday";
     weekDay.innerHTML = weekday[newDate.getDay()];
 
-    return date
+    return dateText
 }
 
 function setBookingEvent(event) {
@@ -103,7 +104,7 @@ function drawSchedule(newRow, bookings) {
         const td = document.createElement('td');
         td.setAttribute('classroom', newRow.getAttribute('classroom'));
         td.setAttribute('hour', hour);
-        td.setAttribute('date', '2020-09-08') //TODO: hard-coded date!
+        td.setAttribute('date', getDate());
         let defaultField = {
             surname: '',
             status: 'free',

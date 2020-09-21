@@ -1,13 +1,16 @@
 export {loadBookedRooms, saveBookedRoom, deleteBookedRoom };
-import {updateSchedule} from "./table.js";
+import {updateSchedule, getDate} from "./table.js";
 
 let user_surname = "me";
 
 function loadBookedRooms(callback) {
+    const dateConfiguration = {
+        date : getDate()
+    }
     let httpRequest = new XMLHttpRequest();
-    httpRequest.open('GET', "http://127.0.0.1:5000/");
+    httpRequest.open('POST', "http://127.0.0.1:5000/");
     httpRequest.setRequestHeader('Content-Type', 'application/json');
-    httpRequest.send();
+    httpRequest.send(JSON.stringify(dateConfiguration));
     httpRequest.onreadystatechange = () => parseBookingResponse(httpRequest, callback);
 }
 
