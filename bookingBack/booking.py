@@ -77,11 +77,9 @@ def check_booking_DB(booking):
         booking['status'] = 'booked'
         save_booking_DB(booking)
         booking['status'] = 'newBooking'
-        print('bookinggggg', booking)
         print('success')
         return booking
     else:
-        print('buuuu')
         return 'Error'
 
 

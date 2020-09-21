@@ -102,21 +102,18 @@ function drawSchedule(newRow, bookings) {
     }
 }
 
-function updateSchedule(httpRequest, event, payload) {
+function updateSchedule(httpRequest, event) {
     if (httpRequest.readyState === 4) {
-        if (httpRequest.response === "You can't delete this booking") {
-            alert("You can't delete this booking")
-        }
         const response = JSON.parse(httpRequest.response)
         console.log("updatescheduleresponse", response)
-        
         if (response.status === "newBooking") {
             console.log("You've booked")
             event.target.onclick = onDeleteEvent;
             drawOneField(event.target, response)
-
         } else if (response.status === "free") {
             drawOneField(event.target, response)
+        } else if (response.info === "You can't delete this booking") {
+            alert("You are not allowed to delete this booking")
         } else {
             console.log('sorryyy not this time')
         }

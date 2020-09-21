@@ -16,16 +16,14 @@ def save_bookings():
     if booking['status'] == 'newBooking':
         return jsonify(booking)
     else:
-        return 'You cant book this room'
+        return {"info": "You can't book this room"}
 
 
 @app.route('/deleteBooking', methods=['POST'])
 def delete_booking():
     deleted_booking = request.json
-    print("deleted_booking", deleted_booking)
     if deleted_booking['status'] == "newBooking" or deleted_booking["surname"] == "me":
         free_room = delete_from_DB(deleted_booking)
-        print('free_room', free_room)
         return free_room
     else:
-        return "You can't delete this booking"
+        return {"info": "You can't delete this booking"}

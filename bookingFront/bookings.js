@@ -1,5 +1,5 @@
 export {loadBookedRooms, saveBookedRoom, deleteBookedRoom };
-import {drawOneField, updateSchedule} from "./table.js";
+import {updateSchedule} from "./table.js";
 
 let user_surname = "me";
 
@@ -26,7 +26,7 @@ function sendBookedRoom(payload, event) {
     httpRequest.open('POST', "http://127.0.0.1:5000/bookRoom");
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(JSON.stringify(payload));
-    httpRequest.onreadystatechange = () => updateSchedule(httpRequest, event, payload);
+    httpRequest.onreadystatechange = () => updateSchedule(httpRequest, event);
 
 }
 
@@ -60,6 +60,6 @@ function deleteBooking(deletedBooking, event) {
     httpRequest.open('POST', "http://127.0.0.1:5000/deleteBooking");
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(JSON.stringify(deletedBooking));
-    httpRequest.onreadystatechange = () => updateSchedule(httpRequest, event, deletedBooking)
+    httpRequest.onreadystatechange = () => updateSchedule(httpRequest, event)
 
 }
