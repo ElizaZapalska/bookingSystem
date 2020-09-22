@@ -1,12 +1,14 @@
+
 export {loadBookedRooms, saveBookedRoom, deleteBookedRoom };
-import {updateSchedule, getDate} from "./table.js";
+import {updateSchedule, getDateText} from "./table.js";
 
 let user_surname = "me";
 
-function loadBookedRooms(callback) {
+function loadBookedRooms(date, callback) {
     const dateConfiguration = {
-        date : getDate()
+        date : getDateText(date)
     }
+    console.log('dateConfiguration', dateConfiguration)
     let httpRequest = new XMLHttpRequest();
     httpRequest.open('POST', "http://127.0.0.1:5000/");
     httpRequest.setRequestHeader('Content-Type', 'application/json');

@@ -1,10 +1,14 @@
-export {getDate, generateTable, setBookingEvent, setDeleteEvent, drawOneField, updateSchedule}
+export {getDateText, generateTable, setBookingEvent, setDeleteEvent, drawOneField, updateSchedule, setNewDate, getNewDate}
 
 
 
 let userSurname = 'me';
-let dateElement = document.getElementById('date');
-const weekDay = document.getElementById('weekDay')
+const dateElement = document.getElementById('date');
+const weekDay = document.getElementById('weekDay');
+let displayedDate = new Date();
+dateElement.innerHTML = getDateText(displayedDate);
+displayWeekDay(displayedDate);
+
 
 const hours = [
     "6:30", "7:00", "7:30", "8:00", "8:30", "9:00", "9:30", "10:00",
@@ -15,11 +19,29 @@ const hours = [
 let onBookingEvent;
 let onDeleteEvent;
 
-function getDate() {
-    let newDate = new Date()
-    const splitText = newDate.toISOString().split('T');
+function setNewDate(date) {
+    displayedDate = date;
+    displayWeekDay(displayedDate);
+}
+
+function getNewDate() {
+    return displayedDate
+}
+
+
+
+function getDateText(newDate) {
+    console.log("newDate", newDate)
+    const newDateText = newDate.toISOString();
+    console.log('newDateText', newDateText)
+    const splitText = newDateText.split('T');
     const dateText = splitText[0];
     dateElement.innerHTML = dateText;
+    return dateText
+}
+
+
+function displayWeekDay(date) {
     let weekday = new Array(7);
     weekday[0] = "Sunday";
     weekday[1] = "Monday";
@@ -28,9 +50,7 @@ function getDate() {
     weekday[4] = "Thursday";
     weekday[5] = "Friday";
     weekday[6] = "Saturday";
-    weekDay.innerHTML = weekday[newDate.getDay()];
-
-    return dateText
+    weekDay.innerHTML = weekday[date.getDay()];
 }
 
 function setBookingEvent(event) {
@@ -42,8 +62,25 @@ function setDeleteEvent(event) {
 }
 
 function generateTable(savedBookings) {
+    createTable();
     appendHours(hours);
     appendClassrooms(savedBookings);
+}
+
+function createTable() {
+    if (document.getElementById('table')) {
+        const oldTable = document.getElementById('table');
+        oldTable.remove()
+        const table = document.createElement('table')
+        table.setAttribute('id', 'table')
+        document.body.appendChild(table)
+        return table
+    } else {
+        const table = document.createElement('table')
+        table.setAttribute('id', 'table')
+        document.body.appendChild(table)
+        return table
+    }
 }
 
 function drawOneField(td, booking) {
@@ -86,9 +123,7 @@ function appendClassrooms(savedBookings) {
     const table = document.getElementById('table');
     const savedClassrooms = savedBookings["classrooms"];
     for (let classNumber of Object.keys(savedClassrooms)) {
-        console.log('classNumber', classNumber);
         let bookings = savedClassrooms[classNumber];
-        console.log("bookings", bookings);
         let newRow = document.createElement("tr");
         newRow.setAttribute("classroom", classNumber);
         let classroomField = document.createElement("td");
@@ -104,7 +139,6 @@ function drawSchedule(newRow, bookings) {
         const td = document.createElement('td');
         td.setAttribute('classroom', newRow.getAttribute('classroom'));
         td.setAttribute('hour', hour);
-        td.setAttribute('date', getDate());
         let defaultField = {
             surname: '',
             status: 'free',
@@ -139,4 +173,3 @@ function updateSchedule(httpRequest, event) {
         }
     }
 }
-
