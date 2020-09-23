@@ -19,6 +19,7 @@ def save_booking_DB(booking):
 
 def get_all_bookings_DB(date):
     all_bookings = change_data_to_JSON_format(date)
+    print('im here')
     all_classrooms = get_all_classrooms_DB()
     booking_details = convertData(all_bookings, all_classrooms)
     return booking_details
@@ -48,6 +49,7 @@ def get_all_classrooms_DB():
     for classroom_object in classrooms:
         classroom = classroom_object.classroom
         all_classrooms.append(classroom)
+    print('all_classrooms', all_classrooms)
     return all_classrooms
 
 
@@ -56,8 +58,9 @@ def convertData(all_bookings, all_classrooms):
 
     for classroom in all_classrooms:
         classroom_details = []
+        bookings_details['classrooms'][classroom] = classroom_details
         for booking in all_bookings:
-            bookings_details['classrooms'][classroom] = classroom_details
+            
             if booking['classroom'] == classroom:
                 classroom_details.append(booking)
 

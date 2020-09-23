@@ -62,7 +62,7 @@ function setDeleteEvent(event) {
 }
 
 function generateTable(savedBookings) {
-    createTable();
+    createTable()
     appendHours(hours);
     appendClassrooms(savedBookings);
 }
