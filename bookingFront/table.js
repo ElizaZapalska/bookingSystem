@@ -3,10 +3,9 @@ export {getDateText, generateTable, setBookingEvent, setDeleteEvent, drawOneFiel
 
 
 let userSurname = 'me';
-const dateElement = document.getElementById('date');
+
 const weekDay = document.getElementById('weekDay');
 let displayedDate = new Date();
-dateElement.innerHTML = getDateText(displayedDate);
 displayWeekDay(displayedDate);
 
 
@@ -31,12 +30,9 @@ function getNewDate() {
 
 
 function getDateText(newDate) {
-    console.log("newDate", newDate)
     const newDateText = newDate.toISOString();
-    console.log('newDateText', newDateText)
     const splitText = newDateText.split('T');
     const dateText = splitText[0];
-    dateElement.innerHTML = dateText;
     return dateText
 }
 
