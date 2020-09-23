@@ -139,6 +139,7 @@ function drawSchedule(newRow, bookings) {
         const td = document.createElement('td');
         td.setAttribute('classroom', newRow.getAttribute('classroom'));
         td.setAttribute('hour', hour);
+        td.setAttribute('date', getDateText(displayedDate))
         let defaultField = {
             surname: '',
             status: 'free',
