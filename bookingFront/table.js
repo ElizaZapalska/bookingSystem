@@ -84,10 +84,10 @@ function drawOneField(td, booking) {
     td.setAttribute('status', booking.status)
     if (booking.surname === userSurname) {
         td.setAttribute('class', 'bookedByMe');
+        td.onmouseover = () => displayAttributes(td);
     } else {
         td.setAttribute('class', booking.status)
     }
-
     if (booking.status === "free"){
         td.onclick = onBookingEvent;
     } else if (booking.status ==="newBooking") {
@@ -96,8 +96,16 @@ function drawOneField(td, booking) {
     else {
         td.onclick = onDeleteEvent;
     }
+    if (booking.status === 'booked'){
+        td.onmouseover = () => displayAttributes(td);
+    }
+
 
 }
+ function displayAttributes(td) {
+    const displayedText = td.getAttribute('surname')
+    td.setAttribute('title', displayedText)
+ }
 
 function appendHours(hours) {
     const table = document.getElementById('table');
