@@ -1,5 +1,6 @@
+from datetime import datetime, date
 
-from booking_table import Booking
+from booking_model import Booking
 from classroom_table import Classroom
 from databaseConfig import db
 
@@ -78,7 +79,32 @@ def check_booking_DB(booking):
         print('success')
         return booking
     else:
-        return 'Error'
+        return KeyError
+
+
+def check_limit(booking):
+    checked_bookings = Booking.query.filter_by(date=booking['date'], user=booking['surname']).all()
+    print('checked_bookings', checked_bookings)
+    print(len(checked_bookings))
+    if len(checked_bookings) > 3:
+        print('error')
+        return False
+    else:
+        return True
+
+
+def check_date(booking):
+    date_today = datetime.today().now()
+    date_booking = datetime.strptime(booking['date'], '%Y-%m-%d')
+    delta_days = date_booking - date_today
+    print('substraction', delta_days)
+    splitted_delta_days_text = str(delta_days).split(' ')
+    days = int(splitted_delta_days_text[0])
+    print(days)
+    if days >= -1:
+        return True
+    else:
+        return False
 
 
 def delete_from_DB(deleted_booking):

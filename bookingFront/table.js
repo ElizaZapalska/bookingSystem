@@ -166,7 +166,7 @@ function updateSchedule(httpRequest, event) {
         } else if (response.info === "You can't delete this booking") {
             alert("You are not allowed to delete this booking")
         } else {
-            console.log('sorryyy not this time')
+            alert("you can't book more than 2 hours per day")
         }
     }
 }

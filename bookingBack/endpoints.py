@@ -1,6 +1,6 @@
 from flask import jsonify, request
 from app import app
-from booking import get_all_bookings_DB, check_booking_DB, delete_from_DB
+from booking_service import get_all_bookings_DB, check_booking_DB, delete_from_DB, check_limit, check_date
 
 
 @app.route('/', methods=['POST'])
@@ -12,11 +12,13 @@ def get_booked_rooms():
 @app.route('/bookRoom', methods=['POST'])
 def save_bookings():
     booking = request.json
-    check_booking_DB(booking)
+    if check_date(booking) and check_limit(booking):
+        check_booking_DB(booking)
     if booking['status'] == 'newBooking':
         return jsonify(booking)
     else:
-        return {"info": "You can't book this room"}
+        print("you can't book this room")
+        return jsonify("you can't book this room")
 
 
 @app.route('/deleteBooking', methods=['POST'])
