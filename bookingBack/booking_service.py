@@ -97,11 +97,13 @@ def check_date(booking):
     date_today = datetime.today().now()
     date_booking = datetime.strptime(booking['date'], '%Y-%m-%d')
     delta_days = date_booking - date_today
-    print('substraction', delta_days)
-    splitted_delta_days_text = str(delta_days).split(' ')
-    days = int(splitted_delta_days_text[0])
-    print(days)
-    if days >= -1:
+    split_delta_days_text = str(delta_days).split(' ')
+    days = split_delta_days_text[0]
+    print('days', days)
+    if ":" in days:
+        days = 0
+
+    if int(days) >= -1:
         return True
     else:
         return False
