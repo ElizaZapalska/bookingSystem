@@ -94,28 +94,34 @@ def check_limit(booking):
 
 
 def check_date(booking):
-    date_today = datetime.today().now() #TODO make order, find time to both date
+    date_today = datetime.today().now()
     time_today = datetime.today().time()
     date_booking = datetime.strptime(booking['date']+booking['hour'], '%Y-%m-%d%H:%M')
     time_booking = datetime.time(date_booking)
-    print('time1', time_booking, 'time2', time_today)
+
     delta_days = date_booking - date_today
+    print('weekday', date_booking.weekday(), 'weekday', date_today.weekday())
+
     split_delta_days_text = str(delta_days).split(' ')
     days = split_delta_days_text[0]
     print('days', days)
+
     if ":" in days:
         days = 0
 
     if float(days) > -1:
         return True
-    elif float(days) == -1:
+    elif float(days) == -1 and date_booking.weekday() > date_today.weekday():
         if time_booking > time_today:
             return True
+    elif float(days) == -1 and date_booking.weekday() < date_today.weekday():
+        return False
     else:
         return False
 
 
 def delete_from_DB(deleted_booking):
+    check_date(deleted_booking)
     filtered_booking = Booking.query.filter_by(date=deleted_booking['date'], classroom=deleted_booking['classroom'],
                                                hour=deleted_booking['hour']).first()
     print('filtered_booking', filtered_booking)
