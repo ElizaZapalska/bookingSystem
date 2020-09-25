@@ -1,0 +1,57 @@
+body {
+    background-color: #e5e3e3;
+}
+h2 {
+    font-family: 'Source Sans Pro', sans-serif;
+    text-align: center;
+    font-size: 2em;
+    color: #4e4e4e;
+    text-shadow: 5px 5px rgba(159, 155, 161, 0.34);
+}
+
+.navigationBar {
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: #555353;
+    height: 40px;
+    text-align: right;
+    text-shadow: none;
+    margin: 0 auto;
+}
+
+.navigationBar a {
+    color: #cdcdcd;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 30px;
+    padding: 5px 10px;
+    margin: 20px;
+    text-decoration: none;
+
+
+}
+
+#bookingStartText {
+    margin: 100px auto;
+    text-align: center;
+    width: 400px;
+    height: auto;
+    color: #d9d3d3;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 2.5em;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #558462;
+    box-shadow: 5px 50px 30px #bfcbc3;
+}
+
+#greyStrip {
+    background-color: #555353;
+    height: 40px;
+    text-align: left;
+    color: #999797;
+    text-shadow: none;
+}
+#navigationBar {
+    border: 1px solid black;
+    margin: 0 auto;
+    display: inline-block;
+}
