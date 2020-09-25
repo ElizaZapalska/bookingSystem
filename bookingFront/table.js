@@ -64,12 +64,14 @@ function generateTable(savedBookings) {
     appendClassrooms(savedBookings);
 }
 
+
 function createTable() {
     if (document.getElementById('table')) {
         const oldTable = document.getElementById('table');
         oldTable.remove()
         const table = document.createElement('table')
         table.setAttribute('id', 'table')
+        const table_div = document.getElementById('table_div')
         document.body.appendChild(table)
         return table
     } else {

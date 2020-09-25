@@ -1,6 +1,13 @@
 #table {
     text-align: center;
 }
+#greyStrip {
+    background-color: #555353;
+    height: 40px;
+    text-align: left;
+    color: #999797;
+    text-shadow: none;
+}
 
 #table td {
     border: 1px solid #241f1f;
@@ -11,17 +18,17 @@
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 18px;
     color: #241f1f;
-    border: 1px solid #ea4914;
+    border: 1px solid #558462;
     width: 50px;
     height: 20px;
-    background-color: rgba(255, 176, 142, 0.87);
+    background-color: rgb(206, 204, 204);
 }
 
 .classroomField {
-    border: 1px solid #ea4914;
+    border: 1px solid #558462;
     font-family: 'Source Sans Pro', sans-serif;
     color: #241f1f;
-    background-color: rgba(255, 176, 142, 0.87);
+    background-color: rgb(208, 207, 207);
     font-size: 20px;
 }
 
@@ -47,12 +54,12 @@ h3 {
     text-align: center;
     width: 200px;
     height: 30px;
-    color: #241f1f;
+    color: #d9d3d3;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 1.5em;
     padding: 10px;
     border-radius: 5px;
-    background-color: #ff8139;
+    background-color: #558462;
 
 }
 
@@ -69,12 +76,9 @@ h3 {
 }
 
 .bookByMe {
-    background-color: rgba(159, 255, 132, 0.99);
+    background-color: #95e7aa;
 }
 
 .bookedByMe {
-    background-color: rgba(71, 182, 42, 0.75);
-}
-.old {
-
+    background-color: #558462;
 }
