@@ -94,8 +94,11 @@ def check_limit(booking):
 
 
 def check_date(booking):
-    date_today = datetime.today().now()
-    date_booking = datetime.strptime(booking['date'], '%Y-%m-%d')
+    date_today = datetime.today().now() #TODO make order, find time to both date
+    time_today = datetime.today().time()
+    date_booking = datetime.strptime(booking['date']+booking['hour'], '%Y-%m-%d%H:%M')
+    time_booking = datetime.time(date_booking)
+    print('time1', time_booking, 'time2', time_today)
     delta_days = date_booking - date_today
     split_delta_days_text = str(delta_days).split(' ')
     days = split_delta_days_text[0]
@@ -103,8 +106,11 @@ def check_date(booking):
     if ":" in days:
         days = 0
 
-    if int(days) >= -1:
+    if float(days) > -1:
         return True
+    elif float(days) == -1:
+        if time_booking > time_today:
+            return True
     else:
         return False
 
