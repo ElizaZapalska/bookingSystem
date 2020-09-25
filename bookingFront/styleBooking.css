@@ -3,32 +3,41 @@
 }
 
 #table td {
-    border: 1px solid #805b9f;
+    border: 1px solid #241f1f;
     width: 50px;
     height: 20px;
 }
 #table th {
     font-family: 'Source Sans Pro', sans-serif;
-    color: #501f76;
-    border: 1px solid #805b9f;
+    font-size: 18px;
+    color: #241f1f;
+    border: 1px solid #ea4914;
     width: 50px;
     height: 20px;
-    background-color: #f8f0fd;
+    background-color: rgba(255, 176, 142, 0.87);
+}
+
+.classroomField {
+    border: 1px solid #ea4914;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #241f1f;
+    background-color: rgba(255, 176, 142, 0.87);
+    font-size: 20px;
 }
 
 body {
-    background-color: #fbf9ff;
+    background-color: #e5e3e3;
 }
 h2 {
     font-family: 'Source Sans Pro', sans-serif;
     text-align: center;
     font-size: 2em;
-    color: #501f76;
+    color: #4e4e4e;
     text-shadow: 5px 5px rgba(159, 155, 161, 0.34);
 }
 
 .booked {
-    background-color: #d2d2d2;
+    background-color: #999797;
 }
 
 
@@ -38,10 +47,12 @@ h3 {
     text-align: center;
     width: 200px;
     height: 30px;
-    color: #501f76;
+    color: #241f1f;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 1.5em;
-    border: 1px solid black;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #ff8139;
 
 }
 
@@ -58,11 +69,11 @@ h3 {
 }
 
 .bookByMe {
-    background-color: rgba(208, 243, 160, 0.99);
+    background-color: rgba(159, 255, 132, 0.99);
 }
 
 .bookedByMe {
-    background-color: rgba(146, 172, 93, 0.75);
+    background-color: rgba(71, 182, 42, 0.75);
 }
 .old {
 

@@ -1,3 +1,4 @@
+import {displayAttributes, changeColorOnmouseover, rechangeColor} from "./events.js";
 export {getDateText, generateTable, setBookingEvent, setDeleteEvent, drawOneField, updateSchedule, setNewDate, getNewDate}
 
 
@@ -99,13 +100,7 @@ function drawOneField(td, booking) {
     if (booking.status === 'booked'){
         td.onmouseover = () => displayAttributes(td);
     }
-
-
 }
- function displayAttributes(td) {
-    const displayedText = td.getAttribute('surname')
-    td.setAttribute('title', displayedText)
- }
 
 function appendHours(hours) {
     const table = document.getElementById('table');
@@ -132,6 +127,7 @@ function appendClassrooms(savedBookings) {
         newRow.setAttribute("classroom", classNumber);
         let classroomField = document.createElement("td");
         classroomField.innerText = classNumber;
+        classroomField.setAttribute('class', 'classroomField')
         newRow.appendChild(classroomField);
         table.appendChild(newRow);
         drawSchedule(newRow, bookings);
