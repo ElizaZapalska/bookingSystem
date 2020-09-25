@@ -30,16 +30,16 @@ h2 {
 }
 
 #bookingStartText {
-    margin: 100px auto;
+    margin: 200px auto 100px auto;
     text-align: center;
-    width: 400px;
+    width: 600px;
     height: auto;
     color: #d9d3d3;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 2.5em;
     padding: 10px;
     border-radius: 10px;
-    background-color: #558462;
+    background-color: #679e76;
     box-shadow: 5px 50px 30px #bfcbc3;
 }
 
@@ -54,4 +54,53 @@ h2 {
     border: 1px solid black;
     margin: 0 auto;
     display: inline-block;
+}
+
+#loginContainer, #signUpContainer{
+    width: 500px;
+    height: 300px;
+    margin: 100px auto;
+    background-color: rgba(215, 215, 215, 0.89);
+    border-radius: 30px;
+    box-shadow: 5px 50px 30px #afafaf;
+    border: 1px solid rgba(215, 215, 215, 0.89);
+    text-align: center;
+
+}
+
+
+#loginContainer h2, #signUpContainer h2 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 20px;
+    color: #555353;
+    margin-left: 20px;
+
+}
+
+#loginContainer input, #signUpContainer input {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 20px;
+    color: #555353;
+    margin-left: 20px;
+    margin-bottom: 0px;
+    text-align: left;
+
+
+
+}
+#loginContainer #loginTitle, #signUpContainer #signUpTitle {
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #fcfcfc;
+    background-color: #a6d4af;
+    margin-left: 20px;
+    margin-top: 30px;
+    font-size: 25px;
+    box-shadow: 5px 10px 10px #afafaf;
+    padding-left: 10px;
+    text-align: left;
+
+}
+#footer {
+    background-color: #555353;
+    height: 40px;
 }
