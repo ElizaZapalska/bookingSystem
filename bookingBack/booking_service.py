@@ -109,12 +109,12 @@ def check_date(booking):
     if ":" in days:
         days = 0
 
-    if float(days) > -1:
+    if int(days) > -1:
         return True
-    elif float(days) == -1 and date_booking.weekday() > date_today.weekday():
+    elif int(days) == -1 and date_booking.weekday() > date_today.weekday():
         if time_booking > time_today:
             return True
-    elif float(days) == -1 and date_booking.weekday() < date_today.weekday():
+    elif int(days) == -1 and date_booking.weekday() < date_today.weekday():
         return False
     else:
         return False

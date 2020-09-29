@@ -58,7 +58,7 @@ h2 {
 
 #loginContainer, #signUpContainer{
     width: 500px;
-    height: 550px;
+    height: 600px;
     margin: 100px auto;
     background-color: rgba(215, 215, 215, 0.89);
     border-radius: 30px;
@@ -115,4 +115,14 @@ button {
 
 #loginContainer {
     height: 400px;
+}
+
+.displayedError {
+    display: none;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #727171;
+    background-color: #f1f1f1;
+    width: 50%;
+    margin: 0 auto;
+
 }
