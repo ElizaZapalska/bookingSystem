@@ -1,3 +1,4 @@
+
 const loginEmail = document.getElementById('loginEmail')
 const loginPassword = document.getElementById('loginPassword')
 const signUpUser = document.getElementById('signUpUserName')
@@ -30,12 +31,32 @@ function getSignUpValues() {
     validPassword(signUpData)
     validConfirmation(signUpData)
     if (validEmail(signUpData) &&  validPassword(signUpData) && validConfirmation(signUpData)){
-        console.log('succesful sending')
-        sendRequest(signUpData, "signUp")
-    } else {
-
+        console.log('successful sending')
+        sendSignUpValues(signUpData)
     }
+}
 
+function sendSignUpValues(request) {
+    console.log('request', request);
+    let httpRequest = new XMLHttpRequest();
+    httpRequest.open('POST', "http://127.0.0.1:5000/signUp");
+    httpRequest.setRequestHeader('Content-Type', 'application/json');
+    httpRequest.send(JSON.stringify(request));
+    httpRequest.onreadystatechange = () => pickUpSignUpInfo(httpRequest);
+}
+
+function pickUpSignUpInfo(httpRequest) {
+    if (httpRequest.readyState === 4) {
+        const response = JSON.parse(httpRequest.response);
+        console.log('response', response);
+        if (response.info !== "Success") {
+            document.getElementById('userNameError').style.display = "block";
+        }
+        else {
+            console.log("load booking page");
+            document.getElementById('userNameError').style.display = "none";
+        }
+    }
 }
 
 function sendRequest(request, endpoint) {
@@ -55,7 +76,7 @@ function validEmail(signUpData) {
         signUpEmail.style.border = "none";
         return true
     } else {
-        signUpEmail.style.border = "2px solid red";
+        signUpEmail.style.border = "2px solid #b61010";
         document.getElementById('emailError').style.display = "block";
         return false
     }
@@ -67,7 +88,7 @@ function validPassword(signUpData) {
         signUpPassword.style.border = "none";
         return true
     } else {
-        signUpPassword.style.border = "2px solid red";
+        signUpPassword.style.border = "2px solid #b61010";
         document.getElementById('passwordError').style.display = "block";
         return false
     }
@@ -81,8 +102,8 @@ function validConfirmation(signUpData) {
         signUpConfirm.style.border = "none";
         return true
     } else {
-        signUpPassword.style.border = "2px solid red"
-        signUpConfirm.style.border = "2px solid red"
+        signUpPassword.style.border = "2px solid #b61010"
+        signUpConfirm.style.border = "2px solid #b61010"
         document.getElementById('confirmError').style.display = "block"
         return false
     }

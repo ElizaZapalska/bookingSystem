@@ -7,7 +7,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:haslo@localhost/bookingsys
 CORS(app)
 
 
-
 db.app = app
 db.init_app(app)
 db.create_all()
