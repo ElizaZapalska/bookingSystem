@@ -14,8 +14,6 @@
 </div>
 
 <h1 id="bookingStartText">Booking System</h1>
-<h2>Please log in or sign up</h2>
-
     <div id="loginContainer">
         <h3 id="loginTitle">log in</h3>
         <h2>e-mail</h2>
@@ -25,13 +23,16 @@
             <input id="loginPassword" type="password" placeholder="password">
             <h3 class="displayedError" id="loginPasswordError">d</h3>
         <button id="loginButton">Log In</button>
+        <p id="information">You don't have an account?<button id="signUpButtonFirst">Sign Up!</button></p>
+
     </div>
 
     <div id="signUpContainer">
         <h3 id="signUpTitle">sign up</h3>
         <h2 >user name</h2>
             <input id="signUpUserName">
-            <h3 class="displayedError" id="userNameError"></h3>
+            <h3 class="displayedError" id="userNameError">user name can't contains spaces, '&', '<,>', '=', '+', commas
+            and more than one '.' in the row</h3>
         <h2>e-mail</h2>
             <input id="signUpEmail">
             <h3 class="displayedError" id="emailError">e-mail has to contains "@"!</h3>

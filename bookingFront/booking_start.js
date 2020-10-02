@@ -1,16 +1,21 @@
+const signUpButtonFirst = document.getElementById('signUpButtonFirst');
+const loginEmail = document.getElementById('loginEmail');
+const loginPassword = document.getElementById('loginPassword');
+const signUpUser = document.getElementById('signUpUserName');
+const signUpEmail = document.getElementById('signUpEmail');
+const signUpPassword = document.getElementById('signUpPassword');
+const signUpConfirm = document.getElementById('signUpConfirm');
 
-const loginEmail = document.getElementById('loginEmail')
-const loginPassword = document.getElementById('loginPassword')
-const signUpUser = document.getElementById('signUpUserName')
-const signUpEmail = document.getElementById('signUpEmail')
-const signUpPassword = document.getElementById('signUpPassword')
-const signUpConfirm = document.getElementById('signUpConfirm')
+const loginButton = document.getElementById('loginButton');
+const signUpButton = document.getElementById('signUpButton');
 
-const loginButton = document.getElementById('loginButton')
-const signUpButton = document.getElementById('signUpButton')
-
+signUpButtonFirst.onclick = () => showSignUpContainer();
 loginButton.onclick = () => getLoginValues();
 signUpButton.onclick = () => getSignUpValues();
+
+function showSignUpContainer() {
+    document.getElementById('signUpContainer').style.display = "block";
+}
 
 function getLoginValues() {
     const loginData = {
@@ -27,10 +32,11 @@ function getSignUpValues() {
         password: signUpPassword.value.trim(),
         confirm: signUpConfirm.value.trim()
     }
+    validUserName(signUpData)
     validEmail(signUpData)
     validPassword(signUpData)
     validConfirmation(signUpData)
-    if (validEmail(signUpData) &&  validPassword(signUpData) && validConfirmation(signUpData)){
+    if (validUserName(signUpData) && validEmail(signUpData) && validPassword(signUpData) && validConfirmation(signUpData)){
         console.log('successful sending')
         sendSignUpValues(signUpData)
     }
@@ -85,8 +91,25 @@ function pickUpLoginInfo(httpRequest) {
     }
 }
 
+function validUserName(signUpData) {
+    const characters = [" ", ".", "&", "=", "<", ">", "+", ","]
+    const containTest = characters.some(el => signUpData.username.includes(el));
+    console.log(signUpData.username, ' ===> ', containTest);
+
+    if (containTest) {
+        console.log("źle")
+        signUpUser.style.border = "2px solid #b61010";
+        document.getElementById('userNameError').style.display = "block";
+        document.getElementById('userNameError').style.fontSize = "14px";
+        return false
+    } else {
+        document.getElementById('userNameError').style.display = "none";
+        signUpUser.style.border = "none";
+        return true
+    }
+}
+
 function validEmail(signUpData) {
-    console.log(signUpData)
     if (signUpData.email.includes('@') ) {
         document.getElementById('emailError').style.display = "none";
         signUpEmail.style.border = "none";

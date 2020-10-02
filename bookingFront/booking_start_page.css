@@ -30,7 +30,7 @@ h2 {
 }
 
 #bookingStartText {
-    margin: 200px auto 100px auto;
+    margin: 100px auto 100px auto;
     text-align: center;
     width: 600px;
     height: auto;
@@ -57,8 +57,8 @@ h2 {
 }
 
 #loginContainer, #signUpContainer{
-    width: 500px;
-    height: 600px;
+    width: 600px;
+    height: 630px;
     margin: 100px auto;
     background-color: rgba(215, 215, 215, 0.89);
     border-radius: 30px;
@@ -81,6 +81,7 @@ input {
     font-size: 20px;
     color: #555353;
     text-align: left;
+    width: 300px;
 
 
 
@@ -114,7 +115,11 @@ button {
 }
 
 #loginContainer {
-    height: 400px;
+    height: 600px;
+}
+
+#signUpContainer {
+    display: none;
 }
 
 .displayedError {
@@ -122,7 +127,24 @@ button {
     font-family: 'Source Sans Pro', sans-serif;
     color: #b61010;
     background-color: #f1f1f1;
-    width: 50%;
+    width: 308px;
     margin: 0 auto;
+
+}
+
+#information {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 20px;
+    color: #555353;
+    margin-top: 100px;
+    text-align: right;
+}
+
+#signUpButtonFirst {
+    display: inline-block;
+    font-size: 20px;
+    width: 100px;
+    height: 50px;
+    margin: 0 40px;
 
 }
