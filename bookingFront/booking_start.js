@@ -17,15 +17,15 @@ function getLoginValues() {
         email: loginEmail.value,
         password: loginPassword.value
     }
-    sendRequest(loginData, "login")
+    sendLoginValues(loginData)
 }
 
 function getSignUpValues() {
     const signUpData = {
-        username: signUpUser.value,
-        email: signUpEmail.value,
-        password: signUpPassword.value,
-        confirm: signUpConfirm.value
+        username: signUpUser.value.trim(),
+        email: signUpEmail.value.trim(),
+        password: signUpPassword.value.trim(),
+        confirm: signUpConfirm.value.trim()
     }
     validEmail(signUpData)
     validPassword(signUpData)
@@ -47,26 +47,42 @@ function sendSignUpValues(request) {
 
 function pickUpSignUpInfo(httpRequest) {
     if (httpRequest.readyState === 4) {
+        document.getElementById('userNameError').style.display = "none";
+        document.getElementById('emailError').style.display = "none";
+        document.getElementById('userEmailError').style.display = "none";
         const response = JSON.parse(httpRequest.response);
-        console.log('response', response);
-        if (response.info !== "Success") {
-            document.getElementById('userNameError').style.display = "block";
-        }
-        else {
-            console.log("load booking page");
-            document.getElementById('userNameError').style.display = "none";
+        const errors = response["errors"];
+        for (const error of errors) {
+            console.log(error)
+            const field = document.getElementById(error["field"]);
+            field.style.display = "block";
+            field.innerHTML = error["description"]
         }
     }
 }
 
-function sendRequest(request, endpoint) {
+function sendLoginValues(request) {
     console.log('request', request);
     let httpRequest = new XMLHttpRequest();
-    const urlText = "http://127.0.0.1:5000/" + endpoint;
-    console.log(urlText)
-    httpRequest.open('POST', urlText);
+    httpRequest.open('POST', "http://127.0.0.1:5000/login");
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(JSON.stringify(request));
+    httpRequest.onreadystatechange = () => pickUpLoginInfo(httpRequest);
+}
+
+function pickUpLoginInfo(httpRequest) {
+    if (httpRequest.readyState === 4) {
+        console.log(httpRequest.response);
+        const loginInfo = JSON.parse(httpRequest.response);
+        const loginInfoField = loginInfo["field"];
+        const loginInfoDescription = loginInfo["description"];
+        document.getElementById('loginEmailError').style.display = "none";
+        document.getElementById('loginPasswordError').style.display = "none";
+
+        const field = document.getElementById(loginInfoField);
+        field.style.display = "block";
+        field.innerHTML = loginInfoDescription
+    }
 }
 
 function validEmail(signUpData) {

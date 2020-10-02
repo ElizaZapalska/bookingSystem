@@ -18,8 +18,12 @@
 
     <div id="loginContainer">
         <h3 id="loginTitle">log in</h3>
-        <h2>e-mail</h2><input id="loginEmail" placeholder="e-mail">
-        <h2>password</h2><input id="loginPassword" type="password" placeholder="password">
+        <h2>e-mail</h2>
+            <input id="loginEmail" placeholder="e-mail">
+            <h3 class="displayedError" id="loginEmailError"></h3>
+        <h2>password</h2>
+            <input id="loginPassword" type="password" placeholder="password">
+            <h3 class="displayedError" id="loginPasswordError">d</h3>
         <button id="loginButton">Log In</button>
     </div>
 
@@ -27,16 +31,17 @@
         <h3 id="signUpTitle">sign up</h3>
         <h2 >user name</h2>
             <input id="signUpUserName">
+            <h3 class="displayedError" id="userNameError"></h3>
         <h2>e-mail</h2>
-            <input id="signUpEmail" placeholder="e-mail">
+            <input id="signUpEmail">
             <h3 class="displayedError" id="emailError">e-mail has to contains "@"!</h3>
-            <h3 class="displayedError" id="userNameError">user with this email already exists</h3>
+            <h3 class="displayedError" id="userEmailError"></h3>
         <h2>password</h2>
             <input id="signUpPassword" type="password">
             <h3 class="displayedError" id="passwordError">password has to contains 8 characters</h3>
         <h2>confirm password</h2>
             <input id="signUpConfirm" type="password">
-            <h3 class="displayedError" id="confirmError">confirmation not successful</h3>
+            <h3 class="displayedError" id="confirmError">passwords are not the same</h3>
         <button id = "signUpButton">Sign Up</button>
     </div>
 
