@@ -5,7 +5,7 @@
     <title>Start</title>
     <link href="booking_start_page.css" rel="stylesheet" type="text/css">
 </head>
-<>
+<body>
 
 <div class="navigationBar">
     <a href="#" class="w3-bar-item w3-button">Home</a>
@@ -14,6 +14,7 @@
 </div>
 
 <h1 id="bookingStartText">Booking System</h1>
+
     <div id="loginContainer">
         <h3 id="loginTitle">log in</h3>
         <h2>e-mail</h2>
@@ -24,26 +25,26 @@
             <h3 class="displayedError" id="loginPasswordError">d</h3>
         <button id="loginButton">Log In</button>
         <p id="information">You don't have an account?<button id="signUpButtonFirst">Sign Up!</button></p>
-
+        <p id="loginInfo">Log in successful</p>
     </div>
 
     <div id="signUpContainer">
         <h3 id="signUpTitle">sign up</h3>
         <h2 >user name</h2>
             <input id="signUpUserName">
-            <h3 class="displayedError" id="userNameError">user name can't contains spaces, '&', '<,>', '=', '+', commas
-            and more than one '.' in the row</h3>
+            <h3 class="displayedError" id="userNameError"></h3>
         <h2>e-mail</h2>
             <input id="signUpEmail">
-            <h3 class="displayedError" id="emailError">e-mail has to contains "@"!</h3>
+            <h3 class="displayedError" id="emailError"></h3>
             <h3 class="displayedError" id="userEmailError"></h3>
         <h2>password</h2>
             <input id="signUpPassword" type="password">
-            <h3 class="displayedError" id="passwordError">password has to contains 8 characters</h3>
+            <h3 class="displayedError" id="passwordError"></h3>
         <h2>confirm password</h2>
             <input id="signUpConfirm" type="password">
-            <h3 class="displayedError" id="confirmError">passwords are not the same</h3>
+            <h3 class="displayedError" id="confirmError"></h3>
         <button id = "signUpButton">Sign Up</button>
+        <p id="signUpInfo">Sign up successful, we've send you a massage on e-mail, confirm your registartion and log in to the booking system</p>
     </div>
 
 

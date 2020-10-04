@@ -1,3 +1,7 @@
+export {getCurrentUser}
+
+let currentUser = "";
+
 const signUpButtonFirst = document.getElementById('signUpButtonFirst');
 const loginEmail = document.getElementById('loginEmail');
 const loginPassword = document.getElementById('loginPassword');
@@ -12,6 +16,7 @@ const signUpButton = document.getElementById('signUpButton');
 signUpButtonFirst.onclick = () => showSignUpContainer();
 loginButton.onclick = () => getLoginValues();
 signUpButton.onclick = () => getSignUpValues();
+
 
 function showSignUpContainer() {
     document.getElementById('signUpContainer').style.display = "block";
@@ -32,14 +37,7 @@ function getSignUpValues() {
         password: signUpPassword.value.trim(),
         confirm: signUpConfirm.value.trim()
     }
-    validUserName(signUpData)
-    validEmail(signUpData)
-    validPassword(signUpData)
-    validConfirmation(signUpData)
-    if (validUserName(signUpData) && validEmail(signUpData) && validPassword(signUpData) && validConfirmation(signUpData)){
-        console.log('successful sending')
-        sendSignUpValues(signUpData)
-    }
+    sendSignUpValues(signUpData)
 }
 
 function sendSignUpValues(request) {
@@ -56,13 +54,19 @@ function pickUpSignUpInfo(httpRequest) {
         document.getElementById('userNameError').style.display = "none";
         document.getElementById('emailError').style.display = "none";
         document.getElementById('userEmailError').style.display = "none";
+        document.getElementById('passwordError').style.display = "none";
+        document.getElementById('confirmError').style.display = "none";
         const response = JSON.parse(httpRequest.response);
-        const errors = response["errors"];
-        for (const error of errors) {
-            console.log(error)
-            const field = document.getElementById(error["field"]);
-            field.style.display = "block";
-            field.innerHTML = error["description"]
+        if (response["info"] === "sign up") {
+            document.getElementById("signUpInfo").style.display = "block"
+        } else {
+            const errors = response["errors"];
+            for (const error of errors) {
+                console.log(error)
+                const field = document.getElementById(error["field"]);
+                field.style.display = "block";
+                field.innerHTML = error["description"]
+            }
         }
     }
 }
@@ -80,70 +84,23 @@ function pickUpLoginInfo(httpRequest) {
     if (httpRequest.readyState === 4) {
         console.log(httpRequest.response);
         const loginInfo = JSON.parse(httpRequest.response);
-        const loginInfoField = loginInfo["field"];
-        const loginInfoDescription = loginInfo["description"];
         document.getElementById('loginEmailError').style.display = "none";
         document.getElementById('loginPasswordError').style.display = "none";
 
-        const field = document.getElementById(loginInfoField);
-        field.style.display = "block";
-        field.innerHTML = loginInfoDescription
+        if (loginInfo["info"] === "log in") {
+            document.getElementById("loginInfo").style.display = "block"
+            currentUser = loginInfo["username"];
+        } else {
+            const loginInfoField = loginInfo["field"];
+            const loginInfoDescription = loginInfo["description"];
+            const field = document.getElementById(loginInfoField);
+            field.style.display = "block";
+            field.innerHTML = loginInfoDescription
+        }
     }
 }
 
-function validUserName(signUpData) {
-    const characters = [" ", ".", "&", "=", "<", ">", "+", ","]
-    const containTest = characters.some(el => signUpData.username.includes(el));
-    console.log(signUpData.username, ' ===> ', containTest);
-
-    if (containTest) {
-        console.log("źle")
-        signUpUser.style.border = "2px solid #b61010";
-        document.getElementById('userNameError').style.display = "block";
-        document.getElementById('userNameError').style.fontSize = "14px";
-        return false
-    } else {
-        document.getElementById('userNameError').style.display = "none";
-        signUpUser.style.border = "none";
-        return true
-    }
+function getCurrentUser() {
+    return currentUser
 }
 
-function validEmail(signUpData) {
-    if (signUpData.email.includes('@') ) {
-        document.getElementById('emailError').style.display = "none";
-        signUpEmail.style.border = "none";
-        return true
-    } else {
-        signUpEmail.style.border = "2px solid #b61010";
-        document.getElementById('emailError').style.display = "block";
-        return false
-    }
-}
-
-function validPassword(signUpData) {
-    if (signUpData.password.length >= 8) {
-        document.getElementById('passwordError').style.display = "none";
-        signUpPassword.style.border = "none";
-        return true
-    } else {
-        signUpPassword.style.border = "2px solid #b61010";
-        document.getElementById('passwordError').style.display = "block";
-        return false
-    }
-
-}
-
-function validConfirmation(signUpData) {
-    if (signUpData.password === signUpData.confirm) {
-        document.getElementById('confirmError').style.display = "none"
-        signUpPassword.style.border = "none";
-        signUpConfirm.style.border = "none";
-        return true
-    } else {
-        signUpPassword.style.border = "2px solid #b61010"
-        signUpConfirm.style.border = "2px solid #b61010"
-        document.getElementById('confirmError').style.display = "block"
-        return false
-    }
-}

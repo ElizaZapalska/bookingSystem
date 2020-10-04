@@ -25,8 +25,6 @@ h2 {
     padding: 5px 10px;
     margin: 20px;
     text-decoration: none;
-
-
 }
 
 #bookingStartText {
@@ -141,10 +139,17 @@ button {
 }
 
 #signUpButtonFirst {
+    font-family: 'Source Sans Pro', sans-serif;
     display: inline-block;
     font-size: 20px;
     width: 100px;
     height: 50px;
     margin: 0 40px;
+}
 
+#loginInfo, #signUpInfo {
+    font-family: 'Source Sans Pro', sans-serif;
+    display: none;
+    font-size: 18px;
+    color: #558462;
 }
