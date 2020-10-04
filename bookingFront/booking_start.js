@@ -1,5 +1,3 @@
-export {getCurrentUser}
-
 let currentUser = "";
 
 const signUpButtonFirst = document.getElementById('signUpButtonFirst');
@@ -90,6 +88,10 @@ function pickUpLoginInfo(httpRequest) {
         if (loginInfo["info"] === "log in") {
             document.getElementById("loginInfo").style.display = "block"
             currentUser = loginInfo["username"];
+            let token_string = loginInfo["token"]
+            document.cookie = 'access_token=' + token_string;
+            const x = document.cookie
+            console.log("cookie", x)
         } else {
             const loginInfoField = loginInfo["field"];
             const loginInfoDescription = loginInfo["description"];

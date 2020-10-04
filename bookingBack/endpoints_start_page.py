@@ -1,6 +1,7 @@
 from flask import jsonify, request
 from app import app
 from databaseConfig import db
+from token_service import create_token
 from user_model import User
 from vaidation_error import ValidationError
 
@@ -16,7 +17,8 @@ def login():
         username = user.username
         login_info = {
             "info": "log in",
-            "user": username
+            "user": username,
+            "token": create_token(username)
         }
         return jsonify(login_info), 201
     except Exception as error:

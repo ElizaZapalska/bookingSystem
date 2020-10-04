@@ -1,9 +1,9 @@
-import {displayAttributes, changeColorOnmouseover, rechangeColor} from "./events.js";
+import {displayAttributes} from "./events.js";
 export {getDateText, generateTable, setBookingEvent, setDeleteEvent, drawOneField, updateSchedule, setNewDate, getNewDate}
 
 
 
-let userSurname = 'me';
+let userSurname = "me";
 
 const weekDay = document.getElementById('weekDay');
 let displayedDate = new Date();
