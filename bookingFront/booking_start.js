@@ -92,6 +92,7 @@ function pickUpLoginInfo(httpRequest) {
             document.cookie = 'access_token=' + token_string;
             const x = document.cookie
             console.log("cookie", x)
+            location.replace("http://localhost:63343/bookingFront/booking.html?_ijt=e9jaiq4vplqjhdoqbta6tqbh78");
         } else {
             const loginInfoField = loginInfo["field"];
             const loginInfoDescription = loginInfo["description"];
