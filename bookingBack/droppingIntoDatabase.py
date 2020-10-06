@@ -1,6 +1,6 @@
-from classroom_table import Classroom
+from models.classroom_model import Classroom
 from databaseConfig import db
-from booking_model import Booking
+from models.booking_model import Booking
 
 
 bookings_details = {

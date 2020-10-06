@@ -5,10 +5,10 @@ from booking_service import get_all_bookings_DB, check_booking_DB, delete_from_D
 
 @app.route('/login/user', methods=['POST'])
 def get_booked_rooms():
-    bookingsDate = request.json['date']
+    bookings_date = request.json['date']
     cookie = request.cookies
     print("cookie", cookie)
-    return jsonify(get_all_bookings_DB(bookingsDate))
+    return jsonify(get_all_bookings_DB(bookings_date))
 
 
 @app.route('/login/user/bookRoom', methods=['POST'])

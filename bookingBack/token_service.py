@@ -1,15 +1,13 @@
 import secrets
 from datetime import datetime, timedelta
 from databaseConfig import db
-from login_model import LoginSession
+from models.login_model import LoginSession
 
 
 def create_token(username):
     token = secrets.token_urlsafe(16)
-    exp_date = datetime.now()
-    print(exp_date)
-    exp_date += timedelta(seconds=900)
-    print(exp_date)
+    now = datetime.now()
+    exp_date = now + timedelta(seconds=900)
     save_session_db(username, token, exp_date)
     return token
 

@@ -3,7 +3,7 @@ from app import app
 from databaseConfig import db
 from encryption import encrypt_password, check_encrypted_password
 from token_service import create_token
-from user_model import User
+from models.user_model import User
 from vaidation_error import ValidationError
 
 
@@ -91,7 +91,6 @@ def check_syntax_username(sign_up_data):
     username = sign_up_data['username']
     characters = [" ", ".", "&", "=", "<", ">", "+", ","]
     if any(x in username for x in characters):
-        print('there is sth')
         return ValidationError.USERNAME_SYNTAX
 
 
@@ -129,6 +128,5 @@ def check_email_database(email):
 
 def check_password(email, password):
     user = User.query.filter_by(email=email).first()
-    print("checkpaswooooord")
     if not check_encrypted_password(password, user.password):
         raise Exception(ValidationError.LOGIN_PASSWORD_INCORRECT)
