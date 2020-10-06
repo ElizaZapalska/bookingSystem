@@ -41,6 +41,7 @@ function saveBookedRoom(event) {
         hour: event.target.getAttribute('hour'),
         date: event.target.getAttribute('date'),
         surname: user_surname,
+
         status: event.target.getAttribute('status')
     }
     sendBookedRoom(bookedRoom, event)

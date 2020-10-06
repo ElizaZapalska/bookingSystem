@@ -1,6 +1,7 @@
 from flask import jsonify, request
 from app import app
 from databaseConfig import db
+from encryption import encrypt_password, check_encrypted_password
 from token_service import create_token
 from user_model import User
 from vaidation_error import ValidationError
@@ -74,7 +75,8 @@ def signUp():
 
 
 def save_database(sign_up_data):
-    user = User(username=sign_up_data['username'], email=sign_up_data['email'], password=sign_up_data['password'])
+    encrypted_password = encrypt_password(sign_up_data['password'])
+    user = User(username=sign_up_data['username'], email=sign_up_data['email'], password=encrypted_password)
     db.session.add(user)
     db.session.commit()
 
@@ -127,5 +129,6 @@ def check_email_database(email):
 
 def check_password(email, password):
     user = User.query.filter_by(email=email).first()
-    if user.password != password:
+    print("checkpaswooooord")
+    if not check_encrypted_password(password, user.password):
         raise Exception(ValidationError.LOGIN_PASSWORD_INCORRECT)

@@ -1,5 +1,4 @@
-from datetime import datetime, date
-
+from datetime import datetime
 from booking_model import Booking
 from classroom_table import Classroom
 from databaseConfig import db

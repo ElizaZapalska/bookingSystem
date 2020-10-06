@@ -1,5 +1,3 @@
-let currentUser = "";
-
 const signUpButtonFirst = document.getElementById('signUpButtonFirst');
 const loginEmail = document.getElementById('loginEmail');
 const loginPassword = document.getElementById('loginPassword');
@@ -84,14 +82,12 @@ function pickUpLoginInfo(httpRequest) {
         const loginInfo = JSON.parse(httpRequest.response);
         document.getElementById('loginEmailError').style.display = "none";
         document.getElementById('loginPasswordError').style.display = "none";
-
+        console.log("dupkaaa")
+        console.log("status", loginInfo.status)
         if (loginInfo["info"] === "log in") {
             document.getElementById("loginInfo").style.display = "block"
-            currentUser = loginInfo["username"];
             let token_string = loginInfo["token"]
-            document.cookie = 'access_token=' + token_string;
-            const x = document.cookie
-            console.log("cookie", x)
+            setCookie("access_token", token_string, 15)
             location.replace("http://localhost:63343/bookingFront/booking.html?_ijt=e9jaiq4vplqjhdoqbta6tqbh78");
         } else {
             const loginInfoField = loginInfo["field"];
@@ -103,7 +99,9 @@ function pickUpLoginInfo(httpRequest) {
     }
 }
 
-function getCurrentUser() {
-    return currentUser
+function setCookie(cname, cvalue, exminutes) {
+    const date = new Date();
+    date.setTime(date.getTime() + (exminutes*60*1000));
+    const expires = "expires="+ date.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
-
