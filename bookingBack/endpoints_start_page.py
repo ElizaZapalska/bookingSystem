@@ -1,3 +1,4 @@
+
 from flask import jsonify, request
 from app import app
 from databaseConfig import db
@@ -21,7 +22,8 @@ def login():
             "user": username,
             "token": create_token(username)
         }
-        return jsonify(login_info), 201
+        
+        return jsonify(login_info), 201, {"Set-Cookie": "access-token=%s; Path=/;" % login_info["token"]}
     except Exception as error:
         exceptions = error.args
         print(exceptions[0].field)

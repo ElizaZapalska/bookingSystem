@@ -1,3 +1,4 @@
+from dask.bytes.tests.test_http import requests
 from flask import jsonify, request
 from app import app
 from booking_service import get_all_bookings_DB, check_booking_DB, delete_from_DB, check_limit, check_date
@@ -6,8 +7,8 @@ from booking_service import get_all_bookings_DB, check_booking_DB, delete_from_D
 @app.route('/login/user', methods=['POST'])
 def get_booked_rooms():
     bookings_date = request.json['date']
-    cookie = request.cookies
-    print("cookie", cookie)
+    url = "http://127.0.0.1:5000/login"
+
     return jsonify(get_all_bookings_DB(bookings_date))
 
 

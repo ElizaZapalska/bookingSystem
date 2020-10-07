@@ -70,7 +70,7 @@ function pickUpSignUpInfo(httpRequest) {
 function sendLoginValues(request) {
     console.log('request', request);
     let httpRequest = new XMLHttpRequest();
-    httpRequest.open('POST', "http://127.0.0.1:5000/login");
+    httpRequest.open('POST', "http://localhost:5000/login");
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(JSON.stringify(request));
     httpRequest.onreadystatechange = () => pickUpLoginInfo(httpRequest);
@@ -86,8 +86,6 @@ function pickUpLoginInfo(httpRequest) {
         console.log("status", loginInfo.status)
         if (loginInfo["info"] === "log in") {
             document.getElementById("loginInfo").style.display = "block"
-            let token_string = loginInfo["token"]
-            setCookie("access_token", token_string, 15)
             location.replace("http://localhost:63343/bookingFront/booking.html?_ijt=e9jaiq4vplqjhdoqbta6tqbh78");
         } else {
             const loginInfoField = loginInfo["field"];
@@ -99,9 +97,3 @@ function pickUpLoginInfo(httpRequest) {
     }
 }
 
-function setCookie(cname, cvalue, exminutes) {
-    const date = new Date();
-    date.setTime(date.getTime() + (exminutes*60*1000));
-    const expires = "expires="+ date.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
