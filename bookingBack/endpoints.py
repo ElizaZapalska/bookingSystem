@@ -4,15 +4,14 @@ from app import app
 from booking_service import get_all_bookings_DB, check_booking_DB, delete_from_DB, check_limit, check_date
 
 
-@app.route('/login/user', methods=['POST'])
+@app.route('/api/loadRooms', methods=['POST'])
 def get_booked_rooms():
     bookings_date = request.json['date']
-    url = "http://127.0.0.1:5000/login"
 
     return jsonify(get_all_bookings_DB(bookings_date))
 
 
-@app.route('/login/user/bookRoom', methods=['POST'])
+@app.route('/api/bookRoom', methods=['POST'])
 def save_bookings():
     booking = request.json
     if check_date(booking) and check_limit(booking):
@@ -23,7 +22,7 @@ def save_bookings():
         return jsonify("you can't book this room")
 
 
-@app.route('/login/user/deleteBooking', methods=['POST'])
+@app.route('/api/deleteBooking', methods=['POST'])
 def delete_booking():
     deleted_booking = request.json
     if check_date(deleted_booking) and (deleted_booking['status'] == "newBooking" or deleted_booking["surname"] == "me"):

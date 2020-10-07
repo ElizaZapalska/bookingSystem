@@ -8,7 +8,7 @@ from models.user_model import User
 from vaidation_error import ValidationError
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
     email = request.json['email']
     password = request.json['password']
@@ -34,7 +34,7 @@ def login():
         return jsonify(error_info)
 
 
-@app.route('/signUp', methods=['POST'])
+@app.route('/api/signUp', methods=['POST'])
 def signUp():
     sign_up_data = {
         'username': request.json['username'],

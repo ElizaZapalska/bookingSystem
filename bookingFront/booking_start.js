@@ -12,6 +12,7 @@ const signUpButton = document.getElementById('signUpButton');
 signUpButtonFirst.onclick = () => showSignUpContainer();
 loginButton.onclick = () => getLoginValues();
 signUpButton.onclick = () => getSignUpValues();
+const url = "http://127.0.0.1:5000";
 
 
 function showSignUpContainer() {
@@ -39,7 +40,7 @@ function getSignUpValues() {
 function sendSignUpValues(request) {
     console.log('request', request);
     let httpRequest = new XMLHttpRequest();
-    httpRequest.open('POST', "http://127.0.0.1:5000/signUp");
+    httpRequest.open('POST', url + "/api/signUp");
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(JSON.stringify(request));
     httpRequest.onreadystatechange = () => pickUpSignUpInfo(httpRequest);
@@ -70,7 +71,7 @@ function pickUpSignUpInfo(httpRequest) {
 function sendLoginValues(request) {
     console.log('request', request);
     let httpRequest = new XMLHttpRequest();
-    httpRequest.open('POST', "http://localhost:5000/login");
+    httpRequest.open('POST', url+ "/api/login");
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(JSON.stringify(request));
     httpRequest.onreadystatechange = () => pickUpLoginInfo(httpRequest);
@@ -86,7 +87,7 @@ function pickUpLoginInfo(httpRequest) {
         console.log("status", loginInfo.status)
         if (loginInfo["info"] === "log in") {
             document.getElementById("loginInfo").style.display = "block"
-            location.replace("http://localhost:63343/bookingFront/booking.html?_ijt=e9jaiq4vplqjhdoqbta6tqbh78");
+            location.replace(url + "/bookingFront/booking.html?_ijt=e9jaiq4vplqjhdoqbta6tqbh78");
         } else {
             const loginInfoField = loginInfo["field"];
             const loginInfoDescription = loginInfo["description"];

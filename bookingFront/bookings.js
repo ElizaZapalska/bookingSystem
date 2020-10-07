@@ -3,6 +3,7 @@ export {loadBookedRooms, saveBookedRoom, deleteBookedRoom };
 import {updateSchedule, getDateText} from "./table.js";
 
 let user_surname = "me";
+let url = "http://127.0.0.1:5000";
 
 function loadBookedRooms(date, callback) {
     const dateConfiguration = {
@@ -10,7 +11,7 @@ function loadBookedRooms(date, callback) {
     }
     console.log('dateConfiguration', dateConfiguration)
     let httpRequest = new XMLHttpRequest();
-    httpRequest.open('POST', "http://127.0.0.1:5000/login/user");
+    httpRequest.open('POST', url + "/api/loadRooms");
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(JSON.stringify(dateConfiguration));
     httpRequest.onreadystatechange = () => parseBookingResponse(httpRequest, callback);
@@ -28,7 +29,7 @@ function parseBookingResponse(httpRequest, callback) {
 function sendBookedRoom(payload, event) {
     console.log('request', payload);
     let httpRequest = new XMLHttpRequest();
-    httpRequest.open('POST', "http://127.0.0.1:5000/login/user/bookRoom");
+    httpRequest.open('POST', url + "/api/bookRoom");
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(JSON.stringify(payload));
     httpRequest.onreadystatechange = () => updateSchedule(httpRequest, event);
@@ -63,7 +64,7 @@ function deleteBookedRoom(event) {
 function deleteBooking(deletedBooking, event) {
     console.log('deletedBooking', deletedBooking)
     let httpRequest = new XMLHttpRequest();
-    httpRequest.open('POST', "http://127.0.0.1:5000/login/user/deleteBooking");
+    httpRequest.open('POST', url + "/api/deleteBooking");
     httpRequest.setRequestHeader('Content-Type', 'application/json');
     httpRequest.send(JSON.stringify(deletedBooking));
     httpRequest.onreadystatechange = () => updateSchedule(httpRequest, event)
