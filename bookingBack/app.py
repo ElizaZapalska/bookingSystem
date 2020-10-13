@@ -4,6 +4,7 @@ from databaseConfig import db
 from models import booking_model, classroom_model, login_model, user_model
 
 app = Flask(__name__)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:haslo@db-container/bookingsystemdb"
 CORS(app)
 db.app = app
@@ -13,7 +14,7 @@ db.session.commit()
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
 
 import endpoints
 import endpoints_start_page
