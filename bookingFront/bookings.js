@@ -3,7 +3,9 @@ export {loadBookedRooms, saveBookedRoom, deleteBookedRoom };
 import {updateSchedule, getDateText} from "./table.js";
 
 let user_surname = "me";
-let url = "http://127.0.0.1:5000";
+
+
+let url = "http://booking.wojtaszewski.com";
 
 function loadBookedRooms(date, callback) {
     const dateConfiguration = {
