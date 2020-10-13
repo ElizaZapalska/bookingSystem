@@ -4,7 +4,7 @@ from databaseConfig import db
 from models import booking_model, classroom_model, login_model, user_model
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:haslo@db-container/bookingsystemdb?port=3306"
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:haslo@db-container/bookingsystemdb"
 CORS(app)
 db.app = app
 db.init_app(app)
