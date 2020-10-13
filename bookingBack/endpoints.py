@@ -1,4 +1,3 @@
-from dask.bytes.tests.test_http import requests
 from flask import jsonify, request
 from app import app
 from booking_service import get_all_bookings_DB, check_booking_DB, delete_from_DB, check_limit, check_date
