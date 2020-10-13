@@ -12,7 +12,7 @@ const signUpButton = document.getElementById('signUpButton');
 signUpButtonFirst.onclick = () => showSignUpContainer();
 loginButton.onclick = () => getLoginValues();
 signUpButton.onclick = () => getSignUpValues();
-const url = "http://127.0.0.1:5000";
+const url = "http://booking.wojtaszewski.com";
 
 
 function showSignUpContainer() {
