@@ -1,4 +1,3 @@
-
 from flask import jsonify, request
 from app import app
 from databaseConfig import db
