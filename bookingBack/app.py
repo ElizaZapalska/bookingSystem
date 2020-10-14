@@ -4,6 +4,7 @@ from flask_cors import CORS
 from databaseConfig import db
 from config import ProductionConfig, DevelopmentConfig
 from models import booking_model, classroom_model, login_model, user_model
+import droppingIntoDatabase
 
 app = Flask(__name__)
 
