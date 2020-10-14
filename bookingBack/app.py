@@ -4,7 +4,6 @@ from flask_cors import CORS
 from databaseConfig import db
 from config import ProductionConfig, DevelopmentConfig
 from models import booking_model, classroom_model, login_model, user_model
-import droppingIntoDatabase
 
 app = Flask(__name__)
 
@@ -24,9 +23,12 @@ db.session.commit()
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
 
-
+import droppingIntoDatabase
 import endpoints
 import endpoints_start_page
 import vaidation_error
+
+
+
 
 

@@ -8,3 +8,5 @@ class Classroom(db.Model):
 
     def __repr__(self):
        return '<classroom=%r>' % self.classroom
+
+
