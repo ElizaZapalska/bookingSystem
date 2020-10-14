@@ -3,7 +3,10 @@ import {generateTable, setBookingEvent, setDeleteEvent, getNewDate} from "./tabl
 export {bookingEvent, loadBookedRooms}
 
 
-console.log("cookie", document.cookie['access-token'])
+console.log("cookies", document.cookie)
+console.log(document.cookie[0])
+const splittedCookie = document.cookie[0].split('==')
+console.log('splittedCookie', splittedCookie)
 
 setBookingEvent(bookingEvent);
 setDeleteEvent(deleteEvent)
