@@ -1,3 +1,5 @@
+import {config} from "./config.js";
+
 const signUpButtonFirst = document.getElementById('signUpButtonFirst');
 const loginEmail = document.getElementById('loginEmail');
 const loginPassword = document.getElementById('loginPassword');
@@ -12,8 +14,10 @@ const signUpButton = document.getElementById('signUpButton');
 signUpButtonFirst.onclick = () => showSignUpContainer();
 loginButton.onclick = () => getLoginValues();
 signUpButton.onclick = () => getSignUpValues();
-const url = "http://booking.wojtaszewski.com";
 
+
+const url = config.url
+console.log(url)
 
 function showSignUpContainer() {
     document.getElementById('signUpContainer').style.display = "block";
@@ -83,11 +87,9 @@ function pickUpLoginInfo(httpRequest) {
         const loginInfo = JSON.parse(httpRequest.response);
         document.getElementById('loginEmailError').style.display = "none";
         document.getElementById('loginPasswordError').style.display = "none";
-        console.log("dupkaaa")
-        console.log("status", loginInfo.status)
         if (loginInfo["info"] === "log in") {
             document.getElementById("loginInfo").style.display = "block"
-            location.replace(url + "/booking.html");
+            location.replace(config.replaceUrl);
         } else {
             const loginInfoField = loginInfo["field"];
             const loginInfoDescription = loginInfo["description"];
