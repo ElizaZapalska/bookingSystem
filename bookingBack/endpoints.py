@@ -6,7 +6,8 @@ from booking_service import get_all_bookings_DB, check_booking_DB, delete_from_D
 @app.route('/api/loadRooms', methods=['POST'])
 def get_booked_rooms():
     bookings_date = request.json['date']
-
+    cookie = request.cookies
+    print(cookie)
     return jsonify(get_all_bookings_DB(bookings_date))
 
 

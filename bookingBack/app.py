@@ -1,11 +1,18 @@
+import os
 from flask import Flask
 from flask_cors import CORS
 from databaseConfig import db
+from config import ProductionConfig, DevelopmentConfig
 from models import booking_model, classroom_model, login_model, user_model
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:haslo@db-container/bookingsystemdb"
+if os.getenv('ENV') == "prod":
+    app.config.from_object(ProductionConfig())
+else:
+    app.config.from_object(DevelopmentConfig())
+
+
 CORS(app)
 db.app = app
 db.init_app(app)
@@ -16,6 +23,9 @@ db.session.commit()
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
 
+
 import endpoints
 import endpoints_start_page
 import vaidation_error
+
+

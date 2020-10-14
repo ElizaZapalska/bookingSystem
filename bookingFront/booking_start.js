@@ -87,7 +87,7 @@ function pickUpLoginInfo(httpRequest) {
         console.log("status", loginInfo.status)
         if (loginInfo["info"] === "log in") {
             document.getElementById("loginInfo").style.display = "block"
-            location.replace(url + "/bookingFront/booking.html");
+            location.replace(url + "/booking.html");
         } else {
             const loginInfoField = loginInfo["field"];
             const loginInfoDescription = loginInfo["description"];
