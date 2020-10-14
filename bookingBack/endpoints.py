@@ -14,7 +14,7 @@ def get_booked_rooms():
 def save_bookings():
     booking = request.json
     cookie = request.cookies
-    print(cookie)
+    print(cookie['access-token'])
     #check_session(cookie)
 
     if check_date(booking) and check_limit(booking):
