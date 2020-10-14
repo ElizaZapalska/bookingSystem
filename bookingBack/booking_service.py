@@ -2,6 +2,7 @@ from datetime import datetime
 from models.booking_model import Booking
 from models.classroom_model import Classroom
 from databaseConfig import db
+from models.login_model import LoginSession
 
 
 def save_booking_DB(booking):
@@ -121,3 +122,8 @@ def delete_from_DB(deleted_booking):
     deleted_booking['status'] = "free"
     deleted_booking["surname"] = ""
     return deleted_booking
+
+
+def check_session(token):
+    filtered_token = LoginSession.query.filter_by(token=token)
+    print(filtered_token, filtered_token)

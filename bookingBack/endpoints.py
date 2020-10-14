@@ -1,19 +1,22 @@
 from flask import jsonify, request
 from app import app
-from booking_service import get_all_bookings_DB, check_booking_DB, delete_from_DB, check_limit, check_date
+from booking_service import get_all_bookings_DB, check_booking_DB, delete_from_DB, check_limit, check_date, \
+    check_session
 
 
 @app.route('/api/loadRooms', methods=['POST'])
 def get_booked_rooms():
     bookings_date = request.json['date']
-    cookie = request.cookies
-    print(cookie)
     return jsonify(get_all_bookings_DB(bookings_date))
 
 
 @app.route('/api/bookRoom', methods=['POST'])
 def save_bookings():
     booking = request.json
+    cookie = request.cookies
+    print(cookie)
+    #check_session(cookie)
+
     if check_date(booking) and check_limit(booking):
         check_booking_DB(booking)
     if booking['status'] == 'newBooking':
