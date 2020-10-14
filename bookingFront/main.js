@@ -4,9 +4,9 @@ export {bookingEvent, loadBookedRooms}
 
 
 console.log("cookies", document.cookie)
-console.log(document.cookie[0])
-const splittedCookie = document.cookie[0].split('==')
+const splittedCookie = document.cookie.split('=')
 console.log('splittedCookie', splittedCookie)
+console.log('token', splittedCookie[1])
 
 setBookingEvent(bookingEvent);
 setDeleteEvent(deleteEvent)
