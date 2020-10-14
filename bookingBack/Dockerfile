@@ -5,5 +5,5 @@ RUN pip install pyOpenSSL==19.1.0
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY . .
-CMD ["flask", "run"]
+CMD ["flask", "run", "--host=0.0.0.0"]
 
