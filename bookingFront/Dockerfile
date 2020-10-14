@@ -1,3 +1,4 @@
 FROM nginx:alpine
-COPY . /usr/share/nginx/html
-COPY configProduction.js config.js
+WORKDIR /usr/share/nginx/html
+COPY . .
+RUN mv configProduction.js config.js
