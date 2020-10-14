@@ -27,6 +27,7 @@ function getLoginValues() {
     const loginData = {
         email: loginEmail.value,
         password: loginPassword.value
+
     }
     sendLoginValues(loginData)
 }

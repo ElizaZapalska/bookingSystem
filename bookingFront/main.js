@@ -3,7 +3,7 @@ import {generateTable, setBookingEvent, setDeleteEvent, getNewDate} from "./tabl
 export {bookingEvent, loadBookedRooms}
 
 
-console.log("cookie", document.cookie)
+console.log("cookie", document.cookie['access-token'])
 
 setBookingEvent(bookingEvent);
 setDeleteEvent(deleteEvent)
