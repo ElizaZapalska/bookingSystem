@@ -44,12 +44,14 @@ db.session.commit()'''
 
 
 def insert_classrooms():
-    all_classrooms = ['4', '5', '6', '7', '8', '9', '10', '11', '12', 'aula', 'concert hall']
+    all_classrooms = ['4', '5', '6', '7', '8', '9', '10', '11', '12', '13', 'aula', 'concert hall']
     for classroom in all_classrooms:
         newClassroom = Classroom(
             classroom=classroom
         )
-        db.session.add(newClassroom)
+        exists = db.session.query(db.exists().where(Classroom.classroom == classroom)).scalar()
+        if not exists:
+            db.session.add(newClassroom)
 
     db.session.commit()
 
