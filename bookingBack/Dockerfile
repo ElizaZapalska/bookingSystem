@@ -4,6 +4,7 @@ WORKDIR /app
 RUN pip install pyOpenSSL==19.1.0
 COPY requirements.txt .
 RUN pip install -r requirements.txt
+ENV ENV="prod"
 COPY . .
 CMD ["flask", "run", "--host=0.0.0.0"]
 
