@@ -5,6 +5,16 @@ from token_service import check_session
 from vaidation_error import ValidationError
 
 
+@app.route('/api/loadUserName', methods=['GET'])
+def load_user_name():
+    token = request.cookies.get('access-token')
+    username = check_session(token)
+    if username != ValidationError.SESSION_HAS_EXPIRED:
+        return jsonify(username)
+    else:
+        return jsonify('session has expired')
+
+
 @app.route('/api/loadRooms', methods=['POST'])
 def get_booked_rooms():
     bookings_date = request.json['date']

@@ -1,5 +1,5 @@
 
-export {loadBookedRooms, saveBookedRoom, deleteBookedRoom };
+export {loadBookedRooms, loadUserName, saveBookedRoom, deleteBookedRoom };
 import {updateSchedule, getDateText} from "./table.js";
 import {config} from "./config.js";
 
@@ -29,6 +29,21 @@ function parseBookingResponse(httpRequest, callback) {
     }
 }
 
+function loadUserName() {
+    let httpRequest = new XMLHttpRequest();
+    httpRequest.open('GET', url + "/api/loadUserName");
+    httpRequest.setRequestHeader('Content-Type', 'application/json');
+    httpRequest.send();
+    httpRequest.onreadystatechange = () => setUserName(httpRequest);
+}
+
+function setUserName(httpRequest) {
+    if (httpRequest.readyState === 4) {
+        console.log(httpRequest.response);
+        const userName = JSON.parse(httpRequest.response);
+        document.getElementById("welcome").innerHTML = "welcome" + userName;
+    }
+}
 function sendBookedRoom(payload, event) {
     console.log('request', payload);
     let httpRequest = new XMLHttpRequest();
