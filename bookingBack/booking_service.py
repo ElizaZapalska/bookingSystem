@@ -2,7 +2,6 @@ from datetime import datetime
 from models.booking_model import Booking
 from models.classroom_model import Classroom
 from databaseConfig import db
-from models.login_model import LoginSession
 
 
 def save_booking_DB(booking):
@@ -89,7 +88,7 @@ def check_limit(booking):
 def check_date(booking):
     date_today = datetime.today().now()
     time_today = datetime.today().time()
-    date_booking = datetime.strptime(booking['date']+booking['hour'], '%Y-%m-%d%H:%M')
+    date_booking = datetime.strptime(booking['date'] + booking['hour'], '%Y-%m-%d%H:%M')
     time_booking = datetime.time(date_booking)
 
     delta_days = date_booking - date_today
@@ -124,6 +123,4 @@ def delete_from_DB(deleted_booking):
     return deleted_booking
 
 
-def check_session(token):
-    filtered_token = LoginSession.query.filter_by(token=token)
-    print(filtered_token, filtered_token)
+
