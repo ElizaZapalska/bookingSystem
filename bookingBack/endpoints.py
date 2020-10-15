@@ -13,7 +13,9 @@ def get_booked_rooms():
 @app.route('/api/bookRoom', methods=['POST'])
 def save_bookings():
     booking = request.json
-    #check_session(token)
+    cookie = request.headers
+    print(cookie)
+    #check_session()
 
     if check_date(booking) and check_limit(booking):
         check_booking_DB(booking)

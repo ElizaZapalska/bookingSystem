@@ -19,6 +19,12 @@ signUpButton.onclick = () => getSignUpValues();
 const url = config.url
 console.log(url)
 
+function catchToken() {
+    const splitCookie = document.cookie.split('=')
+    const tokenCookie = splitCookie[1]
+    return tokenCookie
+}
+
 function showSignUpContainer() {
     document.getElementById('signUpContainer').style.display = "block";
 }
@@ -26,7 +32,8 @@ function showSignUpContainer() {
 function getLoginValues() {
     const loginData = {
         email: loginEmail.value,
-        password: loginPassword.value
+        password: loginPassword.value,
+        token: catchToken()
 
     }
     sendLoginValues(loginData)
