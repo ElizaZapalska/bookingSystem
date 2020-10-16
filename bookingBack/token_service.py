@@ -8,7 +8,7 @@ from vaidation_error import ValidationError
 def create_token(username):
     token = secrets.token_urlsafe(16)
     now = datetime.now()
-    exp_date = now + timedelta(seconds=140)
+    exp_date = now + timedelta(seconds=600)
     save_session_db(username, token, exp_date)
     return token
 

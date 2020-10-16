@@ -33,7 +33,7 @@ def save_bookings():
         booking['surname'] = username
     else:
         error_info = {
-            'description': ValidationError.SESSION_HAS_EXPIRED['description']
+            'description': ValidationError.SESSION_HAS_EXPIRED.description
         }
         return jsonify(error_info), 401
 
@@ -43,7 +43,7 @@ def save_bookings():
         return jsonify(booking), 201
     else:
         error_info = {
-            'description': ValidationError.SESSION_HAS_EXPIRED['description']
+            'description': ValidationError.SESSION_HAS_EXPIRED.description
         }
         return jsonify(error_info), 401
 
@@ -55,7 +55,7 @@ def delete_booking():
     username = check_session(token)
     if username == ValidationError.SESSION_HAS_EXPIRED:
         error_info = {
-            'description': ValidationError.SESSION_HAS_EXPIRED['description']
+            'description': ValidationError.SESSION_HAS_EXPIRED.description
         }
         return jsonify(error_info), 401
 
@@ -64,6 +64,6 @@ def delete_booking():
         return free_room
     else:
         error_info = {
-            'description': ValidationError.CANT_DELETE_BOOKING['description']
+            'description': ValidationError.CANT_DELETE_BOOKING.description
         }
         return jsonify(error_info), 401
