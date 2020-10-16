@@ -4,8 +4,6 @@ import {config} from "./config.js";
 export {user_surname}
 
 let user_surname = "me";
-
-
 let url = config.url
 
 function loadBookedRooms(date, callback) {

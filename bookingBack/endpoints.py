@@ -24,7 +24,6 @@ def get_booked_rooms():
 @app.route('/api/bookRoom', methods=['POST'])
 def save_bookings():
     booking = request.json
-    print("booking,", booking)
     cookies = request.cookies
     token = request.cookies.get('access-token')
     print(cookies)
@@ -33,14 +32,15 @@ def save_bookings():
     if username != ValidationError.SESSION_HAS_EXPIRED:
         booking['surname'] = username
     else:
-        return jsonify('session has expired')
+        print(jsonify(ValidationError.SESSION_HAS_EXPIRED))
+        return jsonify(ValidationError.SESSION_HAS_EXPIRED), 401
 
     if check_date(booking) and check_limit(booking):
         check_booking_DB(booking)
     if booking['status'] == 'newBooking':
-        return jsonify(booking)
+        return jsonify(booking), 201
     else:
-        return jsonify("you can't book this room")
+        return jsonify(ValidationError.CANT_DELETE_BOOKING), 401
 
 
 @app.route('/api/deleteBooking', methods=['POST'])

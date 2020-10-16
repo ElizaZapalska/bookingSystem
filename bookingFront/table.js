@@ -158,7 +158,7 @@ function updateSchedule(httpRequest, event) {
     if (httpRequest.readyState === 4) {
         const response = JSON.parse(httpRequest.response)
         console.log("updatescheduleresponse", response)
-        if (response.status === "newBooking") {
+        if (response.statusCode === 201) {
             console.log("You've booked")
             event.target.onclick = onDeleteEvent;
             drawOneField(event.target, response)

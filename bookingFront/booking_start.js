@@ -7,14 +7,12 @@ const signUpUser = document.getElementById('signUpUserName');
 const signUpEmail = document.getElementById('signUpEmail');
 const signUpPassword = document.getElementById('signUpPassword');
 const signUpConfirm = document.getElementById('signUpConfirm');
-
 const loginButton = document.getElementById('loginButton');
 const signUpButton = document.getElementById('signUpButton');
 
 signUpButtonFirst.onclick = () => showSignUpContainer();
 loginButton.onclick = () => getLoginValues();
 signUpButton.onclick = () => getSignUpValues();
-
 
 const url = config.url
 console.log(url)
