@@ -1,4 +1,4 @@
-import { loadBookedRooms, saveBookedRoom, deleteBookedRoom, loadUserName } from './bookings.js';
+import { loadBookedRooms, saveBookedRoom, deleteBookedRoom, loadUserName, user_surname } from './bookings.js';
 import {generateTable, setBookingEvent, setDeleteEvent, getNewDate} from "./table.js";
 export {bookingEvent, loadBookedRooms}
 
@@ -10,7 +10,7 @@ loadUserName()
 loadBookedRooms(getNewDate(), generateTable);
 
 function bookingEvent(event) {
-    event.target.surname = "me";
+    event.target.surname = user_surname;
     saveBookedRoom(event);
 }
 

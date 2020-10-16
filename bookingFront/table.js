@@ -27,15 +27,12 @@ function getNewDate() {
     return displayedDate
 }
 
-
-
 function getDateText(newDate) {
     const newDateText = newDate.toISOString();
     const splitText = newDateText.split('T');
     const dateText = splitText[0];
     return dateText
 }
-
 
 function displayWeekDay(date) {
     let weekday = new Array(7);
@@ -70,7 +67,6 @@ function createTable() {
         oldTable.remove()
         const table = document.createElement('table')
         table.setAttribute('id', 'table')
-        const table_div = document.getElementById('table_div')
         document.body.appendChild(table)
         return table
     } else {
