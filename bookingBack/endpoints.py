@@ -32,15 +32,20 @@ def save_bookings():
     if username != ValidationError.SESSION_HAS_EXPIRED:
         booking['surname'] = username
     else:
-        print(jsonify(ValidationError.SESSION_HAS_EXPIRED))
-        return jsonify(ValidationError.SESSION_HAS_EXPIRED), 401
+        error_info = {
+            'description': ValidationError.SESSION_HAS_EXPIRED['description']
+        }
+        return jsonify(error_info), 401
 
     if check_date(booking) and check_limit(booking):
         check_booking_DB(booking)
     if booking['status'] == 'newBooking':
         return jsonify(booking), 201
     else:
-        return jsonify(ValidationError.CANT_DELETE_BOOKING), 401
+        error_info = {
+            'description': ValidationError.SESSION_HAS_EXPIRED['description']
+        }
+        return jsonify(error_info), 401
 
 
 @app.route('/api/deleteBooking', methods=['POST'])
@@ -48,13 +53,17 @@ def delete_booking():
     deleted_booking = request.json
     token = request.cookies.get('access-token')
     username = check_session(token)
-    if username != ValidationError.SESSION_HAS_EXPIRED:
-        deleted_booking['surname'] = username
-    else:
-        return jsonify(ValidationError.SESSION_HAS_EXPIRED), 401
+    if username == ValidationError.SESSION_HAS_EXPIRED:
+        error_info = {
+            'description': ValidationError.SESSION_HAS_EXPIRED['description']
+        }
+        return jsonify(error_info), 401
 
     if check_date(deleted_booking) and (deleted_booking['status'] == "newBooking" or deleted_booking["surname"] == "me"):
         free_room = delete_from_DB(deleted_booking)
         return free_room
     else:
-        return jsonify(ValidationError.CANT_DELETE_BOOKING), 401
+        error_info = {
+            'description': ValidationError.CANT_DELETE_BOOKING['description']
+        }
+        return jsonify(error_info), 401
