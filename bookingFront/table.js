@@ -1,9 +1,8 @@
 import {displayAttributes} from "./events.js";
 import {config} from "./config.js";
 export {getDateText, generateTable, setBookingEvent, setDeleteEvent, drawOneField, updateSchedule, setNewDate, getNewDate}
+import {user_surname} from "./bookings.js";
 
-
-let userSurname = "me";
 
 const weekDay = document.getElementById('weekDay');
 let displayedDate = new Date();
@@ -85,7 +84,7 @@ function createTable() {
 function drawOneField(td, booking) {
     td.setAttribute('surname', booking.surname)
     td.setAttribute('status', booking.status)
-    if (booking.surname === userSurname) {
+    if (booking.surname === user_surname) {
         td.setAttribute('class', 'bookedByMe');
         td.onmouseover = () => displayAttributes(td);
     } else {
