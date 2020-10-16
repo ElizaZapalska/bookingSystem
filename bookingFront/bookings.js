@@ -39,7 +39,7 @@ function loadUserName() {
 
 function setUserName(httpRequest) {
     if (httpRequest.readyState === 4) {
-        console.log(httpRequest.response);
+        console.log("username", httpRequest.response);
         const userName = JSON.parse(httpRequest.response);
         document.getElementById("welcome").innerHTML = "welcome" + userName;
     }
@@ -60,7 +60,6 @@ function saveBookedRoom(event) {
         hour: event.target.getAttribute('hour'),
         date: event.target.getAttribute('date'),
         surname: user_surname,
-
         status: event.target.getAttribute('status')
     }
     sendBookedRoom(bookedRoom, event)

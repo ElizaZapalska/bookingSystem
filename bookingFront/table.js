@@ -1,4 +1,5 @@
 import {displayAttributes} from "./events.js";
+import {config} from "./config";
 export {getDateText, generateTable, setBookingEvent, setDeleteEvent, drawOneField, updateSchedule, setNewDate, getNewDate}
 
 
@@ -171,8 +172,9 @@ function updateSchedule(httpRequest, event) {
             drawOneField(event.target, response)
         } else if (response.info === "You can't delete this booking") {
             alert("You are not allowed to delete this booking")
-        } else if (response === "session has expired") {
+        } else if (response.text === "session has expired") {
             alert('session has expired, log in again')
+            location.replace(config.url);
         } else {
             alert("you can't book more than 2 hours per day")
         }

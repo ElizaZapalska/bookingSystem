@@ -4,7 +4,7 @@
 #greyStrip {
     background-color: #555353;
     height: 40px;
-    text-align: left;
+    text-align: center;
     color: #999797;
     text-shadow: none;
 }
@@ -46,7 +46,7 @@ h2 {
 }
 
 .booked {
-    background-color: #999797;
+    background-color: #b6b6b6;
 }
 
 
