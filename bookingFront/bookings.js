@@ -1,4 +1,3 @@
-
 export {loadBookedRooms, loadUserName, saveBookedRoom, deleteBookedRoom };
 import {updateSchedule, getDateText} from "./table.js";
 import {config} from "./config.js";

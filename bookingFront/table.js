@@ -1,5 +1,5 @@
 import {displayAttributes} from "./events.js";
-import {config} from "./config";
+import {config} from "./config.js";
 export {getDateText, generateTable, setBookingEvent, setDeleteEvent, drawOneField, updateSchedule, setNewDate, getNewDate}
 
 
