@@ -75,8 +75,6 @@ function deleteBookedRoom(event) {
     deleteBooking(deletedBooking, event )
 }
 
-
-
 function deleteBooking(deletedBooking, event) {
     console.log('deletedBooking', deletedBooking)
     let httpRequest = new XMLHttpRequest();

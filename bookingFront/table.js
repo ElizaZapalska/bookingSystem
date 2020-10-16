@@ -3,7 +3,6 @@ import {config} from "./config.js";
 export {getDateText, generateTable, setBookingEvent, setDeleteEvent, drawOneField, updateSchedule, setNewDate, getNewDate}
 
 
-
 let userSurname = "me";
 
 const weekDay = document.getElementById('weekDay');

@@ -1,6 +1,5 @@
-import { loadBookedRooms, saveBookedRoom, deleteBookedRoom } from './bookings.js';
+import { loadBookedRooms, saveBookedRoom, deleteBookedRoom, loadUserName } from './bookings.js';
 import {generateTable, setBookingEvent, setDeleteEvent, getNewDate} from "./table.js";
-import {loadUserName} from "./bookings.js";
 export {bookingEvent, loadBookedRooms}
 
 
