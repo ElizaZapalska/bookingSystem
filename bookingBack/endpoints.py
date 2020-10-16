@@ -51,10 +51,10 @@ def delete_booking():
     if username != ValidationError.SESSION_HAS_EXPIRED:
         deleted_booking['surname'] = username
     else:
-        return jsonify('session has expired')
+        return jsonify(ValidationError.SESSION_HAS_EXPIRED), 401
 
     if check_date(deleted_booking) and (deleted_booking['status'] == "newBooking" or deleted_booking["surname"] == "me"):
         free_room = delete_from_DB(deleted_booking)
         return free_room
     else:
-        return {"info": "You can't delete this booking"}
+        return jsonify(ValidationError.CANT_DELETE_BOOKING), 401

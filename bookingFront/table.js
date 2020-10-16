@@ -166,7 +166,7 @@ function updateSchedule(httpRequest, event) {
             drawOneField(event.target, response)
         } else if (response.info === "You can't delete this booking") {
             alert("You are not allowed to delete this booking")
-        } else if (response.text === "session has expired") {
+        } else if (response === "session has expired") {
             alert('session has expired, log in again')
             location.replace(config.url);
         } else {

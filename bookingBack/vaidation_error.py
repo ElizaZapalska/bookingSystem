@@ -16,6 +16,7 @@ class ValidationError(enum.Enum):
     PASSWORD_LENGTH = ("passwordError", "Password should contain at least 8 characters")
     PASSWORDS_NOT_SAME = ("confirmError", "Passwords are not the same")
     SESSION_HAS_EXPIRED = ("", "session has expired, log in again")
+    CANT_DELETE_BOOKING = ("", "You are not allowed to delete this booking")
 
 
 

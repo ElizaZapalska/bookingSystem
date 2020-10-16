@@ -71,7 +71,7 @@ function deleteBookedRoom(event) {
         'classroom': event.target.getAttribute('classroom'),
         'hour': event.target.getAttribute('hour'),
         'date': event.target.getAttribute('date'),
-        'surname': event.target.setAttribute('surname', user_surname),
+        'surname': event.target.getAttribute('surname'),
         'status': event.target.getAttribute('status'),
     }
     deleteBooking(deletedBooking, event )
