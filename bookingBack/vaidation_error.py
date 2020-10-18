@@ -18,7 +18,8 @@ class ValidationError(enum.Enum):
     SESSION_HAS_EXPIRED = ("alert", "session has expired, log in again")
     CANT_DELETE_BOOKING = ("alert", "You are not allowed to delete this booking")
     NOT_AVAILABLE_TIME = ("alert", "this hour is not available")
-
+    TOO_MUCH_BOOKINGS = ("alert", "you can't book more than 2 hours per day")
+    DATABASE_ERROR = ("alert", "such booking already in database")
 
 
 

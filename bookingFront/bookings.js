@@ -3,7 +3,7 @@ import {updateSchedule, getDateText} from "./table.js";
 import {config} from "./config.js";
 export {user_surname}
 
-let user_surname = "me";
+let user_surname = "admin";
 let url = config.url
 
 function loadBookedRooms(date, callback) {
@@ -20,7 +20,7 @@ function loadBookedRooms(date, callback) {
 
 function parseBookingResponse(httpRequest, callback) {
     if (httpRequest.readyState === 4) {
-        console.log(httpRequest.response);
+        console.log('parsed response', httpRequest.response);
         const savedBookings = JSON.parse(httpRequest.response);
         console.log('savedBookings', savedBookings);
         callback(savedBookings);
@@ -38,7 +38,7 @@ function loadUserName() {
 function setUserName(httpRequest) {
     if (httpRequest.readyState === 4) {
         console.log("username", httpRequest.response);
-        const userName = JSON.parse(httpRequest.response);
+        const userName = JSON.parse(httpRequest.response)['username'];
         document.getElementById("welcome").innerHTML = "welcome, " + userName;
         user_surname = userName
     }
@@ -59,7 +59,7 @@ function saveBookedRoom(event) {
         hour: event.target.getAttribute('hour'),
         date: event.target.getAttribute('date'),
         surname: user_surname,
-        status: event.target.getAttribute('status')
+        bookingStatus: event.target.getAttribute('bookingStatus')
     }
     sendBookedRoom(bookedRoom, event)
 }
@@ -70,7 +70,7 @@ function deleteBookedRoom(event) {
         'hour': event.target.getAttribute('hour'),
         'date': event.target.getAttribute('date'),
         'surname': event.target.getAttribute('surname'),
-        'status': event.target.getAttribute('status'),
+        'bookingStatus': event.target.getAttribute('bookingStatus'),
     }
     deleteBooking(deletedBooking, event )
 }

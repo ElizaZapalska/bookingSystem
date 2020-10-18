@@ -22,11 +22,13 @@ def save_session_db(username, token, exp_date):
 def check_session(token):
     filtered_token = LoginSession.query.filter_by(token=token).first()
     print('filtered_token', filtered_token)
+    if not filtered_token:
+        return ValidationError.SESSION_HAS_EXPIRED
     exp_date = filtered_token.expiration_date
     now = datetime.now()
     print('exp_date', exp_date)
     print('now', now)
-    if not filtered_token and not exp_date > now:
+    if exp_date < now:
         return ValidationError.SESSION_HAS_EXPIRED
 
 

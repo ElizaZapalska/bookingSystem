@@ -2,6 +2,7 @@ from datetime import datetime
 from models.booking_model import Booking
 from models.classroom_model import Classroom
 from databaseConfig import db
+from models.login_model import LoginSession
 from vaidation_error import ValidationError
 
 
@@ -11,7 +12,7 @@ def save_booking_DB(booking):
         hour=booking['hour'],
         date=booking['date'],
         user=booking['surname'],
-        status=booking['status'])
+        bookingStatus=booking['bookingStatus'])
 
     db.session.add(new_booking)
     db.session.commit()
@@ -35,7 +36,7 @@ def change_data_to_JSON_format(date):
             'hour': booking.hour,
             'date': booking.date.isoformat(),
             'surname': booking.user,
-            'status': booking.status
+            'bookingStatus': booking.bookingStatus
         }
         all_bookings.append(booking_json)
 
@@ -70,27 +71,24 @@ def check_booking_DB(booking):
     filtered_booking = Booking.query.filter_by(date=booking['date'], classroom=booking['classroom'],
                                                hour=booking['hour']).first()
     if not filtered_booking:
-        booking['status'] = 'booked'
+        booking['bookingStatus'] = 'booked'
         save_booking_DB(booking)
-        booking['status'] = 'newBooking'
-        return booking
+        booking['bookingStatus'] = 'newBooking'
     else:
-        return KeyError
+        return ValidationError.DATABASE_ERROR
 
 
 def check_limit(booking):
     checked_bookings = Booking.query.filter_by(date=booking['date'], user=booking['surname']).all()
     if len(checked_bookings) > 3:
-        return False
-    else:
-        return True
+        return ValidationError.TOO_MUCH_BOOKINGS
 
 
 def check_date(booking):
     date_today = datetime.today().now()
-    #time_today = datetime.today().time()
+    time_today = datetime.today().time()
     date_booking = datetime.strptime(booking['date'] + booking['hour'], '%Y-%m-%d%H:%M')
-    #time_booking = datetime.time(date_booking)
+    time_booking = datetime.time(date_booking)
 
     delta_days = date_booking - date_today
     print('weekday', date_booking.weekday(), 'weekday', date_today.weekday())
@@ -99,9 +97,14 @@ def check_date(booking):
     days = split_delta_days_text[0]
     print('days', days)
     if ":" in days:
-        days = 0
-    if int(days) == -1 and date_booking.weekday() < date_today.weekday():
+       days = 0
+    print('days', days)
+    if int(days) < -1:
         return ValidationError.NOT_AVAILABLE_TIME
+    if int(days) == -1 and time_today > time_booking:
+        return ValidationError.NOT_AVAILABLE_TIME
+
+
 
 
 def delete_from_DB(deleted_booking):
@@ -112,9 +115,14 @@ def delete_from_DB(deleted_booking):
     db.session.delete(filtered_booking)
     db.session.commit()
 
-    deleted_booking['status'] = "free"
+    deleted_booking['bookingStatus'] = "free"
     deleted_booking["surname"] = ""
     return deleted_booking
 
 
+def check_name(deleted_booking, token):
+    filtered_token = LoginSession.query.filter_by(token=token).first()
+    username = filtered_token.username
+    if deleted_booking["surname"] != username:
+        return ValidationError.CANT_DELETE_BOOKING
 

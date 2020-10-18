@@ -79,22 +79,22 @@ function createTable() {
 
 function drawOneField(td, booking) {
     td.setAttribute('surname', booking.surname)
-    td.setAttribute('status', booking.status)
+    td.setAttribute('bookingStatus', booking.bookingStatus)
     if (booking.surname === user_surname) {
         td.setAttribute('class', 'bookedByMe');
         td.onmouseover = () => displayAttributes(td);
     } else {
-        td.setAttribute('class', booking.status)
+        td.setAttribute('class', booking.bookingStatus)
     }
-    if (booking.status === "free"){
+    if (booking.bookingStatus === "free"){
         td.onclick = onBookingEvent;
-    } else if (booking.status ==="newBooking") {
+    } else if (booking.bookingStatus ==="newBooking") {
         td.setAttribute('class', 'bookByMe')
     }
     else {
         td.onclick = onDeleteEvent;
     }
-    if (booking.status === 'booked'){
+    if (booking.bookingStatus === 'booked'){
         td.onmouseover = () => displayAttributes(td);
     }
 }
@@ -139,7 +139,7 @@ function drawSchedule(newRow, bookings) {
         td.setAttribute('date', getDateText(displayedDate))
         let defaultField = {
             surname: '',
-            status: 'free',
+            bookingStatus: 'free',
         }
         drawOneField(td, defaultField)
         newRow.appendChild(td);
@@ -156,15 +156,19 @@ function drawSchedule(newRow, bookings) {
 
 function updateSchedule(httpRequest, event) {
     if (httpRequest.readyState === 4) {
+        console.log(httpRequest.status)
         const response = JSON.parse(httpRequest.response)
         console.log("updatescheduleresponse", response)
-        if (response.statusCode === 201) {
-            console.log("You've booked")
-            event.target.onclick = onDeleteEvent;
-            drawOneField(event.target, response)
-        } else if (response.status === "free") {
-            drawOneField(event.target, response)
-
+        if (httpRequest.status === 200) {
+            if (response.bookingStatus === "newBooking") {
+                console.log("You've booked")
+                event.target.onclick = onDeleteEvent;
+                drawOneField(event.target, response)
+            } else if (response.bookingStatus === "free") {
+                drawOneField(event.target, response)
+            }
+        } else if (httpRequest.status === 401) {
+            alert(response['errors'])
         }
     }
 }
