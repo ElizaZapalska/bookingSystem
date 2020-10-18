@@ -1,18 +1,22 @@
 from flask import jsonify, request
 from app import app
 from booking_service import get_all_bookings_DB, check_booking_DB, delete_from_DB, check_limit, check_date
-from token_service import check_session
-from vaidation_error import ValidationError
+from token_service import check_session, check_username
 
 
 @app.route('/api/loadUserName', methods=['GET'])
 def load_user_name():
     token = request.cookies.get('access-token')
-    username = check_session(token)
-    if username != ValidationError.SESSION_HAS_EXPIRED:
-        return jsonify(username)
+    session_error = check_session(token)
+    errors = []
+    response_body = {"errors": []}
+    if session_error:
+        errors.append(session_error)
+        response_body['errors'] = errors
+        return jsonify(response_body), 401
     else:
-        return jsonify('session has expired')
+        username = check_username(token)
+        return username, 201
 
 
 @app.route('/api/loadRooms', methods=['POST'])
@@ -28,42 +32,39 @@ def save_bookings():
     token = request.cookies.get('access-token')
     print(cookies)
     print(token)
-    username = check_session(token)
-    if username != ValidationError.SESSION_HAS_EXPIRED:
-        booking['surname'] = username
-    else:
-        error_info = {
-            'description': ValidationError.SESSION_HAS_EXPIRED.description
-        }
-        return jsonify(error_info), 401
-
-    if check_date(booking) and check_limit(booking):
+    response_body = {'errors': []}
+    errors = []
+    error_session = check_session(token)
+    date_error = check_date(booking)
+    if error_session:
+        errors.append(error_session)
+    if date_error:
+        errors.append(date_error)
+    if not date_error and check_limit(booking):
         check_booking_DB(booking)
-    if booking['status'] == 'newBooking':
+    if not errors and booking['status'] == 'newBooking':
         return jsonify(booking), 201
     else:
-        error_info = {
-            'description': ValidationError.SESSION_HAS_EXPIRED.description
-        }
-        return jsonify(error_info), 401
+        response_body["errors"] = errors
+        return jsonify(response_body), 401
 
 
 @app.route('/api/deleteBooking', methods=['POST'])
 def delete_booking():
     deleted_booking = request.json
     token = request.cookies.get('access-token')
-    username = check_session(token)
-    if username == ValidationError.SESSION_HAS_EXPIRED:
-        error_info = {
-            'description': ValidationError.SESSION_HAS_EXPIRED.description
-        }
-        return jsonify(error_info), 401
-
-    if check_date(deleted_booking) and (deleted_booking['status'] == "newBooking" or deleted_booking["surname"] == "me"):
+    response_body = {"errors": []}
+    errors = []
+    error_session = check_session(token)
+    date_error = check_date(deleted_booking)
+    if error_session:
+        errors.append(error_session)
+    if date_error:
+        errors.append(date_error)
+    if not errors and \
+            (deleted_booking['status'] == "newBooking" or deleted_booking["surname"] == check_username(token)):
         free_room = delete_from_DB(deleted_booking)
-        return free_room
+        return free_room, 201
     else:
-        error_info = {
-            'description': ValidationError.CANT_DELETE_BOOKING.description
-        }
-        return jsonify(error_info), 401
+        response_body["errors"] = errors
+        return jsonify(response_body), 401

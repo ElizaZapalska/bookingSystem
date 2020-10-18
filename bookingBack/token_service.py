@@ -26,7 +26,11 @@ def check_session(token):
     now = datetime.now()
     print('exp_date', exp_date)
     print('now', now)
-    if filtered_token and exp_date > now:
-        return filtered_token.username
-    else:
+    if not filtered_token and not exp_date > now:
         return ValidationError.SESSION_HAS_EXPIRED
+
+
+def check_username(token):
+    filtered_token = LoginSession.query.filter_by(token=token).first()
+    username = filtered_token.username
+    return username

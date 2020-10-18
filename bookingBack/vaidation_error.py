@@ -17,6 +17,7 @@ class ValidationError(enum.Enum):
     PASSWORDS_NOT_SAME = ("confirmError", "Passwords are not the same")
     SESSION_HAS_EXPIRED = ("alert", "session has expired, log in again")
     CANT_DELETE_BOOKING = ("alert", "You are not allowed to delete this booking")
+    NOT_AVAILABLE_TIME = ("alert", "this hour is not available")
 
 
 

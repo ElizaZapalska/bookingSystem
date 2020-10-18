@@ -2,6 +2,7 @@ from datetime import datetime
 from models.booking_model import Booking
 from models.classroom_model import Classroom
 from databaseConfig import db
+from vaidation_error import ValidationError
 
 
 def save_booking_DB(booking):
@@ -87,9 +88,9 @@ def check_limit(booking):
 
 def check_date(booking):
     date_today = datetime.today().now()
-    time_today = datetime.today().time()
+    #time_today = datetime.today().time()
     date_booking = datetime.strptime(booking['date'] + booking['hour'], '%Y-%m-%d%H:%M')
-    time_booking = datetime.time(date_booking)
+    #time_booking = datetime.time(date_booking)
 
     delta_days = date_booking - date_today
     print('weekday', date_booking.weekday(), 'weekday', date_today.weekday())
@@ -99,15 +100,8 @@ def check_date(booking):
     print('days', days)
     if ":" in days:
         days = 0
-    if int(days) > -1:
-        return True
-    elif int(days) == -1 and date_booking.weekday() > date_today.weekday():
-        if time_booking > time_today:
-            return True
-    elif int(days) == -1 and date_booking.weekday() < date_today.weekday():
-        return False
-    else:
-        return False
+    if int(days) == -1 and date_booking.weekday() < date_today.weekday():
+        return ValidationError.NOT_AVAILABLE_TIME
 
 
 def delete_from_DB(deleted_booking):
