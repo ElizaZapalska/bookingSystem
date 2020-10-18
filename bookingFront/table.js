@@ -159,16 +159,18 @@ function updateSchedule(httpRequest, event) {
         console.log(httpRequest.status)
         const response = JSON.parse(httpRequest.response)
         console.log("updatescheduleresponse", response)
-        if (httpRequest.status === 200) {
-            if (response.bookingStatus === "newBooking") {
+        if (httpRequest.status === 201) {
+            if (response['bookingStatus'] === "newBooking") {
                 console.log("You've booked")
                 event.target.onclick = onDeleteEvent;
                 drawOneField(event.target, response)
-            } else if (response.bookingStatus === "free") {
+            } else if (response['bookingStatus'] === "free") {
                 drawOneField(event.target, response)
             }
         } else if (httpRequest.status === 401) {
             alert(response['errors'])
+        } else if (httpRequest.status === 440) {
+            location.replace(config.url)
         }
     }
 }

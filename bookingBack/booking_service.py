@@ -74,14 +74,15 @@ def check_booking_DB(booking):
         booking['bookingStatus'] = 'booked'
         save_booking_DB(booking)
         booking['bookingStatus'] = 'newBooking'
+        return booking
     else:
-        return ValidationError.DATABASE_ERROR
+        raise Exception(ValidationError.DATABASE_ERROR)
 
 
 def check_limit(booking):
     checked_bookings = Booking.query.filter_by(date=booking['date'], user=booking['surname']).all()
     if len(checked_bookings) > 3:
-        return ValidationError.TOO_MUCH_BOOKINGS
+        raise Exception(ValidationError.TOO_MUCH_BOOKINGS)
 
 
 def check_date(booking):
@@ -102,27 +103,27 @@ def check_date(booking):
     if int(days) < -1:
         return ValidationError.NOT_AVAILABLE_TIME
     if int(days) == -1 and time_today > time_booking:
-        return ValidationError.NOT_AVAILABLE_TIME
-
-
+        raise Exception(ValidationError.NOT_AVAILABLE_TIME)
 
 
 def delete_from_DB(deleted_booking):
-    check_date(deleted_booking)
-    filtered_booking = Booking.query.filter_by(date=deleted_booking['date'], classroom=deleted_booking['classroom'],
-                                               hour=deleted_booking['hour']).first()
-    print('filtered_booking', filtered_booking)
-    db.session.delete(filtered_booking)
-    db.session.commit()
+    try:
+        check_date(deleted_booking)
+        filtered_booking = Booking.query.filter_by(date=deleted_booking['date'], classroom=deleted_booking['classroom'],
+                                                   hour=deleted_booking['hour']).first()
+        print('filtered_booking', filtered_booking)
+        db.session.delete(filtered_booking)
+        db.session.commit()
 
-    deleted_booking['bookingStatus'] = "free"
-    deleted_booking["surname"] = ""
-    return deleted_booking
+        deleted_booking['bookingStatus'] = "free"
+        deleted_booking["surname"] = ""
+    except Exception as error:
+        return error
 
 
 def check_name(deleted_booking, token):
     filtered_token = LoginSession.query.filter_by(token=token).first()
     username = filtered_token.username
     if deleted_booking["surname"] != username:
-        return ValidationError.CANT_DELETE_BOOKING
+        raise Exception(ValidationError.CANT_DELETE_BOOKING)
 

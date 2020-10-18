@@ -7,14 +7,14 @@ from token_service import check_session, check_username
 @app.route('/api/loadUserName', methods=['GET'])
 def load_user_name():
     token = request.cookies.get('access-token')
-    #token = "Hx38mTjebo3_d8tOtE4fHQ" #TODO delete this
+    token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
     session_error = check_session(token)
     errors = []
     response_body = {"errors": []}
     if session_error:
         errors.append(session_error)
         response_body['errors'] = errors
-        return jsonify(response_body), 401
+        return jsonify(response_body), 440
     else:
         username = check_username(token)
         username_info = {
@@ -34,28 +34,25 @@ def save_bookings():
     booking = request.json
     cookies = request.cookies
     token = request.cookies.get('access-token')
-    #token = "Hx38mTjebo3_d8tOtE4fHQ" #TODO delete this
+    token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
     print(cookies)
     print(token)
     response_body = {'errors': []}
     errors = []
-    error_session = check_session(token)
-    date_error = check_date(booking)
-    limit_error = check_limit(booking)
-    database_error = check_booking_DB(booking)
-    if error_session:
-        errors.append(error_session.description)
-    if date_error:
-        errors.append(date_error.description)
-    if limit_error:
-        errors.append(limit_error.description)
-    if database_error:
-        errors.append(database_error.description)
-    if not errors:
-        return jsonify(booking), 200
-    else:
-        response_body["errors"] = errors
-        print('errors', response_body)
+    session_error = check_session(token)
+    if session_error:
+        session_info = {
+            "error": session_error.description
+        }
+        jsonify(session_info), 440
+    try:
+        check_date(booking)
+        check_limit(booking)
+        booking = check_booking_DB(booking)
+        return jsonify(booking), 201
+    except Exception as error:
+        exceptions = error.args
+        response_body['errors'] = exceptions[0].description
         return jsonify(response_body), 401
 
 
@@ -63,22 +60,24 @@ def save_bookings():
 def delete_booking():
     deleted_booking = request.json
     token = request.cookies.get('access-token')
-    #token = "Hx38mTjebo3_d8tOtE4fHQ" #TODO delete this
+    token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
     response_body = {"errors": []}
     errors = []
-    error_session = check_session(token)
-    date_error = check_date(deleted_booking)
-    name_error = check_name(deleted_booking, token)
-    if error_session:
-        errors.append(error_session.description)
-    if date_error:
-        errors.append(date_error.description)
-    if name_error:
-        errors.append(name_error.description)
-    if not errors:
-        free_room = delete_from_DB(deleted_booking)
-        return free_room, 200
-    else:
-        response_body["errors"] = errors
-        print('errors', response_body)
+    session_error = check_session(token)
+    if session_error:
+        session_info = {
+            "error": session_error.description
+        }
+        jsonify(session_info), 440
+    try:
+        check_session(token)
+        check_date(deleted_booking)
+        check_name(deleted_booking, token)
+        delete_from_DB(deleted_booking)
+        print(deleted_booking)
+        return deleted_booking, 201
+    except Exception as error:
+        exceptions = error.args
+        print(exceptions[0].field)
+        response_body['errors'] = exceptions[0].description
         return jsonify(response_body), 401
