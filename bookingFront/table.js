@@ -166,5 +166,6 @@ function updateSchedule(httpRequest, event) {
             drawOneField(event.target, response)
 
         }
+    alert(response)
     }
 }
