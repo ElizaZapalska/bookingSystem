@@ -39,7 +39,7 @@ function setUserName(httpRequest) {
     if (httpRequest.readyState === 4) {
         console.log("username", httpRequest.response);
         const userName = JSON.parse(httpRequest.response)['username'];
-        document.getElementById("welcome").innerHTML = "welcome, " + userName;
+        document.getElementById("welcome").innerHTML = "welcome, " + userName + '!';
         user_surname = userName
     }
 }
