@@ -101,7 +101,7 @@ def check_date(booking):
        days = 0
     print('days', days)
     if int(days) < -1:
-        return ValidationError.NOT_AVAILABLE_TIME
+        raise Exception(ValidationError.NOT_AVAILABLE_TIME)
     if int(days) == -1 and time_today > time_booking:
         raise Exception(ValidationError.NOT_AVAILABLE_TIME)
 

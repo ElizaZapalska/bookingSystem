@@ -4,9 +4,10 @@
 #greyStrip {
     background-color: #555353;
     height: 40px;
-    text-align: center;
+    text-align: left;
     color: #999797;
     text-shadow: none;
+    margin: 0 auto;
 }
 
 #table td {
@@ -31,7 +32,6 @@
     color: #241f1f;
     background-color: rgb(208, 207, 207);
     font-size: 20px;
-    box-shadow: 5px 20px 20px #999797;
 }
 
 body {
@@ -88,4 +88,5 @@ h3 {
 
 #welcome {
     text-align: right;
+    margin-right: 20px;
 }

@@ -70,7 +70,6 @@ def delete_booking():
         }
         jsonify(session_info), 440
     try:
-        check_session(token)
         check_date(deleted_booking)
         check_name(deleted_booking, token)
         delete_from_DB(deleted_booking)
