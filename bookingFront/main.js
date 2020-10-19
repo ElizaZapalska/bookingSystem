@@ -4,9 +4,9 @@ export {bookingEvent, loadBookedRooms}
 
 
 
+loadUserName()
 setBookingEvent(bookingEvent);
 setDeleteEvent(deleteEvent)
-loadUserName()
 loadBookedRooms(getNewDate(), generateTable);
 
 function bookingEvent(event) {

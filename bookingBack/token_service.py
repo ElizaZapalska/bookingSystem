@@ -23,13 +23,13 @@ def check_session(token):
     filtered_token = LoginSession.query.filter_by(token=token).first()
     print('filtered_token', filtered_token)
     if not filtered_token:
-        return ValidationError.SESSION_HAS_EXPIRED
+        return ValidationError.SESSION_HAS_EXPIRED #TODO you can make custom exception here
     exp_date = filtered_token.expiration_date
     now = datetime.now()
     print('exp_date', exp_date)
     print('now', now)
     if exp_date < now:
-        return ValidationError.SESSION_HAS_EXPIRED
+        return ValidationError.SESSION_HAS_EXPIRED #TODO you can make custom exception here
 
 
 def check_username(token):

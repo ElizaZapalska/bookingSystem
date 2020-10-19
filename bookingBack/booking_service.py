@@ -98,11 +98,13 @@ def check_date(booking):
     days = split_delta_days_text[0]
     print('days', days)
     if ":" in days:
-       days = 0
+        days = 0
     print('days', days)
     if int(days) < -1:
         raise Exception(ValidationError.NOT_AVAILABLE_TIME)
     if int(days) == -1 and time_today > time_booking:
+        raise Exception(ValidationError.NOT_AVAILABLE_TIME)
+    if int(days) == -1:
         raise Exception(ValidationError.NOT_AVAILABLE_TIME)
 
 
@@ -126,4 +128,3 @@ def check_name(deleted_booking, token):
     username = filtered_token.username
     if deleted_booking["surname"] != username:
         raise Exception(ValidationError.CANT_DELETE_BOOKING)
-

@@ -167,7 +167,7 @@ function updateSchedule(httpRequest, event) {
             } else if (response['bookingStatus'] === "free") {
                 drawOneField(event.target, response)
             }
-        } else if (httpRequest.status === 401) {
+        } else if (httpRequest.status === 403) {
             alert(response['errors'])
         } else if (httpRequest.status === 440) {
             location.replace(config.url)

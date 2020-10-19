@@ -25,6 +25,7 @@ function catchToken() {
 
 function showSignUpContainer() {
     document.getElementById('signUpContainer').style.display = "block";
+    document.getElementById('signUpContainer').scrollIntoView();
 }
 
 function getLoginValues() {

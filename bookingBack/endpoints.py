@@ -7,7 +7,7 @@ from token_service import check_session, check_username
 @app.route('/api/loadUserName', methods=['GET'])
 def load_user_name():
     token = request.cookies.get('access-token')
-    #token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
+    token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
     session_error = check_session(token)
     errors = []
     response_body = {"errors": []}
@@ -34,7 +34,7 @@ def save_bookings():
     booking = request.json
     cookies = request.cookies
     token = request.cookies.get('access-token')
-    #token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
+    token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
     print(cookies)
     print(token)
     response_body = {'errors': []}
@@ -53,16 +53,15 @@ def save_bookings():
     except Exception as error:
         exceptions = error.args
         response_body['errors'] = exceptions[0].description
-        return jsonify(response_body), 401
+        return jsonify(response_body), 403
 
 
 @app.route('/api/deleteBooking', methods=['POST'])
 def delete_booking():
     deleted_booking = request.json
     token = request.cookies.get('access-token')
-    #token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
+    token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
     response_body = {"errors": []}
-    errors = []
     session_error = check_session(token)
     if session_error:
         session_info = {
@@ -79,4 +78,4 @@ def delete_booking():
         exceptions = error.args
         print(exceptions[0].field)
         response_body['errors'] = exceptions[0].description
-        return jsonify(response_body), 401
+        return jsonify(response_body), 403
