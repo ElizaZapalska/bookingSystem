@@ -7,7 +7,7 @@ from token_service import check_session, check_username
 @app.route('/api/loadUserName', methods=['GET'])
 def load_user_name():
     token = request.cookies.get('access-token')
-    token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
+    #token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
     session_error = check_session(token)
     errors = []
     response_body = {"errors": []}
@@ -34,11 +34,9 @@ def save_bookings():
     booking = request.json
     cookies = request.cookies
     token = request.cookies.get('access-token')
-    token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
-    print(cookies)
-    print(token)
+    #token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
     response_body = {'errors': []}
-    errors = []
+    booking["surname"] = check_username(token) #delete
     session_error = check_session(token)
     if session_error:
         session_info = {
@@ -60,7 +58,7 @@ def save_bookings():
 def delete_booking():
     deleted_booking = request.json
     token = request.cookies.get('access-token')
-    token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
+    #token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
     response_body = {"errors": []}
     session_error = check_session(token)
     if session_error:
@@ -69,6 +67,7 @@ def delete_booking():
         }
         jsonify(session_info), 440
     try:
+        deleted_booking["surname"] = check_username(token)
         check_date(deleted_booking)
         check_name(deleted_booking, token)
         delete_from_DB(deleted_booking)

@@ -10,7 +10,7 @@ setDeleteEvent(deleteEvent)
 loadBookedRooms(getNewDate(), generateTable);
 
 function bookingEvent(event) {
-    event.target.surname = user_surname;
+    //event.target.surname = user_surname;
     saveBookedRoom(event);
 }
 

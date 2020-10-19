@@ -1,5 +1,8 @@
 #table {
     text-align: center;
+    width: 1000px;
+    overflow: scroll;
+
 }
 #greyStrip {
     background-color: #555353;
@@ -8,6 +11,10 @@
     color: #999797;
     text-shadow: none;
     margin: 0 auto;
+    width: 100%;
+}
+
+#table_div {
 }
 
 #table td {
@@ -88,5 +95,5 @@ h3 {
 
 #welcome {
     text-align: right;
-    margin-right: 20px;
+    margin-right: 50px;
 }

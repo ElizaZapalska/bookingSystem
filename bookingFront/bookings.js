@@ -39,7 +39,7 @@ function setUserName(httpRequest) {
     if (httpRequest.readyState === 4) {
         console.log("username", httpRequest.response);
         const userName = JSON.parse(httpRequest.response)['username'];
-        document.getElementById("welcome").innerHTML = "welcome, " + userName + '!';
+        document.getElementById("welcome").innerHTML = "Welcome, " + userName + '!';
         user_surname = userName
     }
 }
@@ -58,7 +58,7 @@ function saveBookedRoom(event) {
         classroom: event.target.getAttribute('classroom'),
         hour: event.target.getAttribute('hour'),
         date: event.target.getAttribute('date'),
-        surname: user_surname,
+        //surname: user_surname,
         bookingStatus: event.target.getAttribute('bookingStatus')
     }
     sendBookedRoom(bookedRoom, event)
@@ -69,7 +69,7 @@ function deleteBookedRoom(event) {
         'classroom': event.target.getAttribute('classroom'),
         'hour': event.target.getAttribute('hour'),
         'date': event.target.getAttribute('date'),
-        'surname': event.target.getAttribute('surname'),
+        //'surname': event.target.getAttribute('surname'),
         'bookingStatus': event.target.getAttribute('bookingStatus'),
     }
     deleteBooking(deletedBooking, event )
