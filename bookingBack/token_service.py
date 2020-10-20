@@ -36,3 +36,12 @@ def check_username(token):
     filtered_token = LoginSession.query.filter_by(token=token).first()
     username = filtered_token.username
     return username
+
+
+def change_exp_date(token):
+    filtered_session = LoginSession.query.filter_by(token=token).first()
+    print(filtered_session)
+    print('1', filtered_session.expiration_date)
+    filtered_session.expiration_date = datetime.now()
+    print('2', datetime.now())
+    db.session.commit()

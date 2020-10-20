@@ -170,6 +170,7 @@ function updateSchedule(httpRequest, event) {
         } else if (httpRequest.status === 403) {
             alert(response['errors'])
         } else if (httpRequest.status === 440) {
+            console.log('session has expired')
             location.replace(config.url)
         }
     }

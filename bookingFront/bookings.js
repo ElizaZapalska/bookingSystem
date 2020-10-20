@@ -37,10 +37,14 @@ function loadUserName() {
 
 function setUserName(httpRequest) {
     if (httpRequest.readyState === 4) {
-        console.log("username", httpRequest.response);
-        const userName = JSON.parse(httpRequest.response)['username'];
-        document.getElementById("welcome").innerHTML = "Welcome, " + userName + '!';
-        user_surname = userName
+        if (httpRequest.status === 200) {
+            console.log("username", httpRequest.response);
+            const userName = JSON.parse(httpRequest.response)['username'];
+            document.getElementById("welcome").innerHTML = "Welcome, " + userName + '!';
+            user_surname = userName
+        } else if (httpRequest.status === 440) {
+            location.replace(config.url)
+        }
     }
 }
 function sendBookedRoom(payload, event) {

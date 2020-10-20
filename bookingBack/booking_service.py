@@ -128,3 +128,4 @@ def check_name(deleted_booking, token):
     username = filtered_token.username
     if deleted_booking["surname"] != username:
         raise Exception(ValidationError.CANT_DELETE_BOOKING)
+

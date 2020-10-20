@@ -1,7 +1,7 @@
 from flask import jsonify, request
 from app import app
 from booking_service import get_all_bookings_DB, check_booking_DB, delete_from_DB, check_limit, check_date, check_name
-from token_service import check_session, check_username
+from token_service import check_session, check_username, change_exp_date
 
 
 @app.route('/api/loadUserName', methods=['GET'])
@@ -9,10 +9,11 @@ def load_user_name():
     token = request.cookies.get('access-token')
     #token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
     session_error = check_session(token)
+    print('session_error', session_error)
     errors = []
     response_body = {"errors": []}
     if session_error:
-        errors.append(session_error)
+        errors.append(session_error.description)
         response_body['errors'] = errors
         return jsonify(response_body), 440
     else:
@@ -32,11 +33,10 @@ def get_booked_rooms():
 @app.route('/api/bookRoom', methods=['POST'])
 def save_bookings():
     booking = request.json
-    cookies = request.cookies
     token = request.cookies.get('access-token')
     #token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
     response_body = {'errors': []}
-    booking["surname"] = check_username(token) #delete
+    booking["surname"] = check_username(token)  # delete
     session_error = check_session(token)
     if session_error:
         session_info = {
@@ -78,3 +78,11 @@ def delete_booking():
         print(exceptions[0].field)
         response_body['errors'] = exceptions[0].description
         return jsonify(response_body), 403
+
+
+@app.route('/api/logOut', methods=['GET'])
+def log_out():
+    token = request.cookies.get('access-token')
+    #token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
+    change_exp_date(token)
+    return jsonify({}), 200
