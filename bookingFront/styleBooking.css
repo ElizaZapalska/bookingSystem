@@ -12,9 +12,16 @@
     text-shadow: none;
     margin: 0 auto;
     width: 100%;
+    position:relative;
 }
 
-#table_div {
+#logout {
+    color: #95e7aa;
+    cursor: pointer;
+    border: #999797;
+    position: absolute;
+    right: 50px;
+    font-size: 30px;
 }
 
 #table td {
