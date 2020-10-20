@@ -42,7 +42,7 @@ def save_bookings():
         session_info = {
             "error": session_error.description
         }
-        jsonify(session_info), 440
+        return jsonify(session_info), 440
     try:
         check_date(booking)
         check_limit(booking)
@@ -65,7 +65,7 @@ def delete_booking():
         session_info = {
             "error": session_error.description
         }
-        jsonify(session_info), 440
+        return jsonify(session_info), 440
     try:
         deleted_booking["surname"] = check_username(token)
         check_date(deleted_booking)
