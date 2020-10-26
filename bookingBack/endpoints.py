@@ -71,7 +71,6 @@ def delete_booking():
         return deleted_booking, 201
     except Exception as error:
         exceptions = error.args
-        print(exceptions[0].field)
         response_body['errors'] = exceptions[0].description
         return jsonify(response_body), 403
 
