@@ -109,18 +109,16 @@ def check_date(booking):
 
 
 def delete_from_DB(deleted_booking):
-    try:
-        check_date(deleted_booking)
-        filtered_booking = Booking.query.filter_by(date=deleted_booking['date'], classroom=deleted_booking['classroom'],
+    filtered_booking = Booking.query.filter_by(date=deleted_booking['date'], classroom=deleted_booking['classroom'],
                                                    hour=deleted_booking['hour']).first()
-        print('filtered_booking', filtered_booking)
-        db.session.delete(filtered_booking)
-        db.session.commit()
+    print('filtered_booking', filtered_booking)
+    db.session.delete(filtered_booking)
+    db.session.commit()
 
-        deleted_booking['bookingStatus'] = "free"
-        deleted_booking["surname"] = ""
-    except Exception as error:
-        return error
+
+def change_attributes(deleted_booking):
+    deleted_booking['bookingStatus'] = "free"
+    deleted_booking["surname"] = ""
 
 
 def check_name(deleted_booking, token):

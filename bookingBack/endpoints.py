@@ -1,6 +1,7 @@
 from flask import jsonify, request
 from app import app
-from booking_service import get_all_bookings_DB, check_booking_DB, delete_from_DB, check_limit, check_date, check_name
+from booking_service import get_all_bookings_DB, check_booking_DB, delete_from_DB, check_limit, check_date, check_name, \
+    change_attributes
 from token_service import check_session, check_username, change_exp_date
 
 
@@ -67,6 +68,7 @@ def delete_booking():
         check_date(deleted_booking)
         check_name(deleted_booking, token)
         delete_from_DB(deleted_booking)
+        change_attributes(deleted_booking)
         print(deleted_booking)
         return deleted_booking, 201
     except Exception as error:
