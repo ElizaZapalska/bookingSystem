@@ -96,7 +96,7 @@ function pickUpLoginInfo(httpRequest) {
         document.getElementById('loginPasswordError').style.display = "none";
         if (loginInfo["info"] === "log in") {
             document.getElementById("loginInfo").style.display = "block"
-            location.replace(config.replaceUrl);
+            window.location.href = config.replaceUrl;
         } else {
             const loginInfoField = loginInfo["field"];
             const loginInfoDescription = loginInfo["description"];

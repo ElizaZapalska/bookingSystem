@@ -7,7 +7,6 @@ from token_service import check_session, check_username, change_exp_date
 @app.route('/api/loadUserName', methods=['GET'])
 def load_user_name():
     token = request.cookies.get('access-token')
-    token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
     session_error = check_session(token)
     print('session_error', session_error)
     errors = []
@@ -34,7 +33,6 @@ def get_booked_rooms():
 def save_bookings():
     booking = request.json
     token = request.cookies.get('access-token')
-    token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
     response_body = {'errors': []}
     booking["surname"] = check_username(token)  # delete
     session_error = check_session(token)
@@ -58,7 +56,6 @@ def save_bookings():
 def delete_booking():
     deleted_booking = request.json
     token = request.cookies.get('access-token')
-    token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
     response_body = {"errors": []}
     session_error = check_session(token)
     if session_error:
@@ -82,6 +79,5 @@ def delete_booking():
 @app.route('/api/logOut', methods=['GET'])
 def log_out():
     token = request.cookies.get('access-token')
-    token = "Hx38mTjebo3_d8tOtE4fHQ"  # TODO delete this
     change_exp_date(token)
     return jsonify({}), 200

@@ -44,6 +44,6 @@ function logOutUser() {
 function redirect(httpRequest) {
     if (httpRequest.readyState === 4) {
         console.log("response log out", httpRequest.response);
-        location.replace(config.url)
+        window.location.href = config.url
     }
 }
