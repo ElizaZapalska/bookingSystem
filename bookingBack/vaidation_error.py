@@ -19,7 +19,8 @@ class ValidationError(enum.Enum):
     CANT_DELETE_BOOKING = ("alert", "You are not allowed to delete this booking")
     NOT_AVAILABLE_TIME = ("alert", "This time is no longer available")
     TOO_MUCH_BOOKINGS = ("alert", "You can't book more than 2 hours per day")
-    DATABASE_ERROR = ("alert", "Such booking already in database")
+    DATABASE_ERROR = ("alert", "Somebody also wanted to book this room")
+    CANT_BOOK_ON_THE_SAME_HOUR_FEW_CLASSES = ("alert", "Yoy can't book more than one room in this hour")
 
 
 

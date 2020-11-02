@@ -1,7 +1,7 @@
 from flask import jsonify, request
 from app import app
 from booking_service import get_all_bookings_DB, check_booking_DB, delete_from_DB, check_limit, check_date, check_name, \
-    change_attributes
+    change_attributes, check_other_classrooms_this_hour
 from token_service import check_session, check_username, change_exp_date
 
 
@@ -35,7 +35,7 @@ def save_bookings():
     booking = request.json
     token = request.cookies.get('access-token')
     response_body = {'errors': []}
-    booking["surname"] = check_username(token)  # delete
+    booking["surname"] = check_username(token)
     session_error = check_session(token)
     if session_error:
         session_info = {
@@ -44,6 +44,7 @@ def save_bookings():
         return jsonify(session_info), 440
     try:
         check_date(booking)
+        check_other_classrooms_this_hour(booking, booking["surname"])
         check_limit(booking)
         booking = check_booking_DB(booking)
         return jsonify(booking), 201

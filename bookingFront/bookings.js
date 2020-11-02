@@ -43,7 +43,7 @@ function setUserName(httpRequest) {
             document.getElementById("welcome").innerHTML = "Welcome, " + userName + '!';
             user_surname = userName
         } else if (httpRequest.status === 440) {
-            location.replace(config.url)
+            window.location.href = config.url
         }
     }
 }

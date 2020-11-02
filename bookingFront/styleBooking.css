@@ -11,16 +11,17 @@
     color: #999797;
     text-shadow: none;
     margin: 0 auto;
-    width: 100%;
+    width: 1800px;
     position:relative;
+
 }
 
 #logout {
     color: #95e7aa;
     cursor: pointer;
-    border: #999797;
+    border: #979797;
     position: absolute;
-    right: 50px;
+    right: 200px;
     font-size: 30px;
 }
 
@@ -65,8 +66,8 @@ h2 {
 
 
 
-h3 {
-    margin: 20px auto;
+#date {
+
     text-align: center;
     width: 200px;
     height: 30px;
@@ -77,19 +78,20 @@ h3 {
     border-radius: 5px;
     background-color: #558462;
     box-shadow: 5px 20px 20px #999797;
-
 }
 
 #navigationBar {
-    margin: 20px auto;
-    width: 40%;
+    margin: 0 auto;
+    width: 70%;
     text-align: center;
+
 }
 
 
 .arrow {
-    width: 40px;
-    height: 40px;
+    width: 80px;
+    height: 80px;
+    border: 1px solid black;
 }
 
 .bookByMe {
@@ -102,5 +104,9 @@ h3 {
 
 #welcome {
     text-align: right;
-    margin-right: 50px;
+    margin-right: 100px;
+}
+
+#navigationBar .inline {
+    display: inline-block;
 }

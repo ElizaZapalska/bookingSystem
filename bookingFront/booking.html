@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <title>booking</title>
     <link href="styleBooking.css" rel="stylesheet" type="text/css">
+    <link href="calendarStyle.css" rel="stylesheet" type="text/css">
     <link rel="icon" type="image/png" href="images/favicon.png"/>
 </head>
 <body>
 <h2 id="greyStrip">Bookings<a id="logout">Log out</a></h2>
 <h2 id="welcome">You have to log in, to use the booking system.</h2>
 
+
 <div id="navigationBar">
-    <img id="leftArrow" class="arrow" src="images/arrowLeft.png">
-    <h3 id="date">date</h3>
-    <img id ="rightArrow" class="arrow" src="images/arrowRight.png">
+    <img id="leftArrow" class="arrow" class="inline" src="images/arrowLeft.png">
+    <span id="date" class="inline">date</span>
+    <img id ="rightArrow" class="arrow" class="inline" src="images/arrowRight.png">
     <h2 id="weekDay">week day</h2>
 </div>
 
@@ -26,6 +28,7 @@
 <script src="bookings.js" type="module"></script>
 <script src="navigationBar.js" type="module"></script>
 <script src="config.js" type="module"></script>
+<script src="calendar.js" type="module"></script>
 
 </body>
 </html>

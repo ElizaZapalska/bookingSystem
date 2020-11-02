@@ -127,3 +127,11 @@ def check_name(deleted_booking, token):
     if deleted_booking["surname"] != username:
         raise Exception(ValidationError.CANT_DELETE_BOOKING)
 
+
+def check_other_classrooms_this_hour(booking, username):
+    filtered_bookings = Booking.query.filter_by(date=booking['date'], user=username, hour=booking['hour']).all()
+    print('filtered_bookings', filtered_bookings)
+    print('len:', len(filtered_bookings))
+    if len(filtered_bookings) >= 1:
+        raise Exception(ValidationError.CANT_BOOK_ON_THE_SAME_HOUR_FEW_CLASSES)
+
