@@ -2,6 +2,7 @@
     text-align: center;
     width: 1000px;
     overflow: scroll;
+    margin: 0 auto
 
 }
 #greyStrip {
@@ -10,8 +11,8 @@
     text-align: left;
     color: #999797;
     text-shadow: none;
-    margin: 0 auto;
     width: 1800px;
+    margin: 0 auto;
     position:relative;
 
 }
@@ -80,6 +81,10 @@ h2 {
     box-shadow: 5px 20px 20px #999797;
 }
 
+#stripWelcome {
+    width: 1800px;
+    margin: 0 auto;
+}
 #navigationBar {
     margin: 0 auto;
     width: 70%;
@@ -91,7 +96,6 @@ h2 {
 .arrow {
     width: 80px;
     height: 80px;
-    border: 1px solid black;
 }
 
 .bookByMe {
@@ -104,7 +108,7 @@ h2 {
 
 #welcome {
     text-align: right;
-    margin-right: 100px;
+    margin-right: 200px;
 }
 
 #navigationBar .inline {

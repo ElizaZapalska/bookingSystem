@@ -12,6 +12,11 @@ const signUpButton = document.getElementById('signUpButton');
 
 signUpButtonFirst.onclick = () => showSignUpContainer();
 loginButton.onclick = () => getLoginValues();
+document.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+        loginButton.click();
+    }
+});
 signUpButton.onclick = () => getSignUpValues();
 
 const url = config.url
